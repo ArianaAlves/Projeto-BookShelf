@@ -1,18 +1,24 @@
 import "./globals.css";
-import ThemeProvider from "../components/design/theme-provider";
+import type { Metadata } from "next";
+import Header from "../components/Header";
+import Footer from "../components/Footer";
 
-export const metadata = {
-  title: "BookShelf",
-  description: "Gerencie sua biblioteca pessoal",
+export const metadata: Metadata = {
+  title: "Bookshelf",
+  description: "Biblioteca Pessoal",
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
   return (
-    <html lang="pt-BR">
+    <html lang="en">
       <body>
-        <ThemeProvider>
-          <main className="container mx-auto p-4">{children}</main>
-        </ThemeProvider>
+        <Header />
+        {children}
+        <Footer />
       </body>
     </html>
   );
