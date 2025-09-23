@@ -1,57 +1,45 @@
-"use client";
-
-import { Book } from "../types/book";
+import Image from "next/image";
 import { Star } from "lucide-react";
-import { Button } from "./ui/button";
-import { Badge } from "./ui/badge";
 
-interface BookCardProps {
-  book: Book;
-  onView: () => void;
-  onEdit: () => void;
-  onDelete: () => void;
-}
+type BookCardProps = {
+  titulo: string;
+  autor: string;
+  capa: string;
+  status: string;
+  avaliacao?: number; 
+};
 
-export function BookCard({ book, onView, onEdit, onDelete }: BookCardProps) {
-  
-  const stars = Array.from({ length: 5 }, (_, i) => (
-    <Star
-      key={i}
-      className={i < book.rating ? "text-yellow-400" : "text-gray-300"}
-    />
-  ));
-
+export default function BookCard({ titulo, autor, capa, status, avaliacao = 0 }: BookCardProps) {
   return (
-    <div className="border rounded-md p-4 flex flex-col gap-2 shadow-sm items-center">
-      <img
-        src={book.cover || "/images/fallback.png"}
-        alt={book.title}
-        className="w-10 h-12 object-cover rounded" 
+    <div className="bg-white shadow rounded-xl p-4 flex flex-col items-center">
+      {/* Capa */}
+      <Image
+        src={capa}
+        alt={titulo}
+        width={80}   
+        height={120}
+        className="object-cover rounded"
       />
 
-      <div className="text-center">
-        <h3 className="font-semibold text-lg">{book.title}</h3>
-        <p className="text-sm text-gray-600">
-          {book.author} - {book.year}
-        </p>
-      </div>
+      {/* Título e autor */}
+      <h2 className="text-sm font-semibold mt-2 text-center">{titulo}</h2>
+      <p className="text-xs text-gray-500">{autor}</p>
 
-      <div className="flex items-center gap-1">{stars}</div>
-    
-      <Badge className="border border-gray-500 text-gray-800">{book.genre}</Badge>
-      <div className="flex justify-between mt-2 w-full">
-        <Button variant="ghost" size="sm" onClick={onView}>
-          👁️ Ver
-        </Button>
+      {/* Status */}
+      <span className="mt-1 text-[10px] px-2 py-1 rounded-full bg-gray-200 text-gray-600">
+        {status}
+      </span>
 
-        <div className="flex gap-2">
-          <Button variant="ghost" size="sm" onClick={onEdit}>
-            ✏️ Editar
-          </Button>
-          <Button variant="danger" size="sm" onClick={onDelete}>
-            🗑️ Excluir
-          </Button>
-        </div>
+      {/* Avaliação em estrelas */}
+      <div className="flex mt-2">
+        {[...Array(5)].map((_, i) => (
+          <Star
+            key={i}
+            className={`w-4 h-4 ${
+              i < avaliacao ? "text-yellow-400 fill-yellow-400" : "text-gray-300"
+            }`}
+          />
+        ))}
       </div>
     </div>
   );
