@@ -1,5 +1,4 @@
 "use client";
-
 import { useState } from "react";
 import BookCard from "../../components/BookCard";
 
@@ -128,3 +127,12 @@ export default function Biblioteca() {
     </div>
   );
 }
+
+function handleDelete(id: number) {
+  if (confirm("Tem certeza que deseja excluir este livro?")) {
+    // Aqui você pode implementar a lógica de remover
+    // Por enquanto pode ser só um console.log:
+    console.log("Excluir livro", id);
+  }
+}
+
