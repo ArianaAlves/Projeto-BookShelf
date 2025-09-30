@@ -8,11 +8,13 @@ export default async function BookDetail({ params }: { params: { id: string } })
 
   return (
     <div className="p-6 max-w-2xl mx-auto">
-      <h1 className="text-2xl font-bold">{book.titulo}</h1>
-      <p className="text-gray-600">{book.autor} • {book.ano}</p>
-      <p className="mt-4">{book.sinopse}</p>
+      {/* Corrigido para usar as propriedades em inglês */}
+      <h1 className="text-2xl font-bold">{book.title}</h1>
+      <p className="text-gray-600">{book.author} • {book.year}</p>
+      <p className="mt-4">{book.synopsis}</p>
 
       <div className="mt-6 flex gap-3">
+        {/* O link para edição está correto */}
         <Link href={`/books/${book.id}/edit`} className="px-3 py-2 bg-blue-600 text-white rounded">Editar</Link>
         <DeleteBookButton id={book.id} />
         <Link href="/books" className="px-3 py-2 bg-gray-200 rounded">Voltar</Link>
