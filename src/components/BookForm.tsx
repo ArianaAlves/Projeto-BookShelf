@@ -1,15 +1,20 @@
 "use client";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import type { Book } from "../types/book";
 
-interface Book {
-  id: string;
-  titulo: string;
-  autor: string;
-  ano: number;
-  genero: string;
-  sinopse?: string;
+
+const initialValues: Book= {
+  id: "",
+  title: "",
+  author: "",
+  cover: "",
+  genre: "",
+  year: new Date().getFullYear(),
+  rating: 0,
+  synopsis: "",
 }
+
 
 export default function BookForm({
   initialValues,
@@ -18,11 +23,12 @@ export default function BookForm({
   initialValues: Book;
   redirectTo?: string;
 }) {
-  const [titulo, setTitulo] = useState(initialValues.titulo);
-  const [autor, setAutor] = useState(initialValues.autor);
-  const [ano, setAno] = useState(initialValues.ano);
-  const [genero, setGenero] = useState(initialValues.genero);
-  const [sinopse, setSinopse] = useState(initialValues.sinopse ?? "");
+  const [title, setTitle] = useState(initialValues.title);
+  const [author, setAuthor] = useState(initialValues.author);
+  const [year, setYear] = useState(initialValues.year);
+  const [genre, setGenre] = useState(initialValues.genre);
+  const [synopsis, setSynopsis] = useState(initialValues.synopsis ?? "");
+
 
   const [loading, setLoading] = useState(false);
   const router = useRouter();
@@ -35,7 +41,7 @@ export default function BookForm({
       const res = await fetch(`/api/books/${initialValues.id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ titulo, autor, ano, genero, sinopse }),
+        body: JSON.stringify({ title, author, year, genre, synopsis }),
       });
 
       if (!res.ok) throw new Error("Erro ao atualizar livro");
@@ -57,17 +63,17 @@ export default function BookForm({
       <div>
         <label className="block text-sm font-medium">Título</label>
         <input
-          value={titulo}
-          onChange={(e) => setTitulo(e.target.value)}
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
           className="w-full border rounded px-3 py-2"
         />
       </div>
 
       <div>
-        <label className="block text-sm font-medium">Autor</label>
+        <label className="block text-sm font-medium">Author</label>
         <input
-          value={autor}
-          onChange={(e) => setAutor(e.target.value)}
+          value={author}
+          onChange={(e) => setAuthor(e.target.value)}
           className="w-full border rounded px-3 py-2"
         />
       </div>
@@ -76,26 +82,26 @@ export default function BookForm({
         <label className="block text-sm font-medium">Ano</label>
         <input
           type="number"
-          value={ano}
-          onChange={(e) => setAno(Number(e.target.value))}
+          value={year}
+          onChange={(e) => setYear(Number(e.target.value))}
           className="w-full border rounded px-3 py-2"
         />
       </div>
 
       <div>
-        <label className="block text-sm font-medium">Gênero</label>
+        <label className="block text-sm font-medium">Genre</label>
         <input
-          value={genero}
-          onChange={(e) => setGenero(e.target.value)}
+          value={genre}
+          onChange={(e) => setGenre(e.target.value)}
           className="w-full border rounded px-3 py-2"
         />
       </div>
 
       <div>
-        <label className="block text-sm font-medium">Sinopse</label>
+        <label className="block text-sm font-medium">Synopsis</label>
         <textarea
-          value={sinopse}
-          onChange={(e) => setSinopse(e.target.value)}
+          value={synopsis}
+          onChange={(e) => setSynopsis(e.target.value)}
           rows={4}
           className="w-full border rounded px-3 py-2"
         />
@@ -106,7 +112,7 @@ export default function BookForm({
         disabled={loading}
         className="px-4 py-2 bg-blue-600 text-white rounded"
       >
-        {loading ? "Salvando..." : "Salvar"}
+        {loading ? "saving..." : "save"}
       </button>
     </form>
   );

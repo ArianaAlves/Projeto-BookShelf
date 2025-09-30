@@ -12,6 +12,7 @@ const livros = [
     genero: "Drama",
     ano: 2007, 
     rating: 5,
+    sinopse: "",
   },
   {
     id: 2,
@@ -21,6 +22,7 @@ const livros = [
     genero: "Tragédia",
     ano: 1600, 
     rating: 5,
+    sinopse: "",
   },
   {
     id: 3,
@@ -30,6 +32,7 @@ const livros = [
     genero: "Drama",
     ano: 2005, 
     rating: 5,
+    sinopse: "",
   },
   {
     id: 4,
@@ -39,6 +42,7 @@ const livros = [
     genero: "Romance",
     ano: 2024, 
     rating: 5,
+    sinopse: "",
   },
   {
     id: 5,
@@ -48,6 +52,7 @@ const livros = [
     genero: "Filosofia",
     ano: 1824, 
     rating: 5,
+    sinopse: "",
   },
   {
     id: 6,
@@ -57,6 +62,7 @@ const livros = [
     genero: "Romance Psicológico",
     ano: 1866, 
     rating: 5,
+    sinopse: "",
   },
   {
     id: 7,
@@ -66,6 +72,7 @@ const livros = [
     genero: "Romance",
     ano: 1811, 
     rating: 4,
+    sinopse: "",
   },
 ];
 
