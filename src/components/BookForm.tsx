@@ -1,107 +1,74 @@
 "use client";
-import { useState } from "react";
-import { useRouter } from "next/navigation";
+
 import type { Book } from "../types/book";
 
-
-const initialValues: Book= {
-  id: "",
-  title: "",
-  author: "",
-  cover: "",
-  genre: "",
-  year: new Date().getFullYear(),
-  rating: 0,
-  synopsis: "",
+// O formulário agora recebe a action e o texto do botão como props
+interface BookFormProps {
+  initialValues: Book;
+  action: (formData: FormData) => void;
+  buttonText: string;
 }
 
-
-export default function BookForm({
-  initialValues,
-  redirectTo,
-}: {
-  initialValues: Book;
-  redirectTo?: string;
-}) {
-  const [title, setTitle] = useState(initialValues.title);
-  const [author, setAuthor] = useState(initialValues.author);
-  const [year, setYear] = useState(initialValues.year);
-  const [genre, setGenre] = useState(initialValues.genre);
-  const [synopsis, setSynopsis] = useState(initialValues.synopsis ?? "");
-
-
-  const [loading, setLoading] = useState(false);
-  const router = useRouter();
-
-  async function handleSubmit(e: React.FormEvent) {
-    e.preventDefault();
-    setLoading(true);
-
-    try {
-      const res = await fetch(`/api/books/${initialValues.id}`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ title, author, year, genre, synopsis }),
-      });
-
-      if (!res.ok) throw new Error("Erro ao atualizar livro");
-
-      if (redirectTo) {
-        router.push(redirectTo);
-      } else {
-        router.refresh();
-      }
-    } catch (err) {
-      alert("Erro ao salvar. Tente novamente.");
-    } finally {
-      setLoading(false);
-    }
-  }
-
+export default function BookForm({ initialValues, action, buttonText }: BookFormProps) {
   return (
-    <form onSubmit={handleSubmit} className="space-y-4 bg-white p-6 rounded shadow">
+    <form action={action} className="space-y-4 bg-white p-6 rounded shadow">
       <div>
         <label className="block text-sm font-medium">Título</label>
         <input
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
+          name="title"
+          defaultValue={initialValues.title}
           className="w-full border rounded px-3 py-2"
+          required // Campo obrigatório
         />
       </div>
 
       <div>
-        <label className="block text-sm font-medium">Author</label>
+        <label className="block text-sm font-medium">Autor</label>
         <input
-          value={author}
-          onChange={(e) => setAuthor(e.target.value)}
+          name="author"
+          defaultValue={initialValues.author}
           className="w-full border rounded px-3 py-2"
+          required
         />
       </div>
 
       <div>
         <label className="block text-sm font-medium">Ano</label>
         <input
+          name="year"
           type="number"
-          value={year}
-          onChange={(e) => setYear(Number(e.target.value))}
+          defaultValue={initialValues.year}
           className="w-full border rounded px-3 py-2"
+          required
         />
       </div>
-
+      
       <div>
-        <label className="block text-sm font-medium">Genre</label>
+        <label className="block text-sm font-medium">Gênero</label>
         <input
-          value={genre}
-          onChange={(e) => setGenre(e.target.value)}
+          name="genre"
+          defaultValue={initialValues.genre}
+          className="w-full border rounded px-3 py-2"
+        />
+      </div>
+      
+      <div>
+        <label className="block text-sm font-medium">Avaliação (0-5)</label>
+        <input
+          name="rating"
+          type="number"
+          min="0"
+          max="5"
+          defaultValue={initialValues.rating}
           className="w-full border rounded px-3 py-2"
         />
       </div>
 
       <div>
-        <label className="block text-sm font-medium">Synopsis</label>
+        <label className="block text-sm font-medium">Sinopse</label>
         <textarea
-          value={synopsis}
-          onChange={(e) => setSynopsis(e.target.value)}
+          name="synopsis"
+          defaultValue={initialValues.synopsis ?? ""}
           rows={4}
           className="w-full border rounded px-3 py-2"
         />
@@ -109,10 +76,9 @@ export default function BookForm({
 
       <button
         type="submit"
-        disabled={loading}
         className="px-4 py-2 bg-blue-600 text-white rounded"
       >
-        {loading ? "saving..." : "save"}
+        {buttonText}
       </button>
     </form>
   );
