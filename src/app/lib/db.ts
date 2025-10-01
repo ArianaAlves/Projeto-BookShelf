@@ -29,3 +29,13 @@ export async function deleteBookById(id: string): Promise<boolean> {
   books.splice(index, 1); // Remove o livro do array
   return true;
 }
+
+// Nova função para adicionar um livro
+export async function addBook(payload: Omit<Book, 'id'>): Promise<Book> {
+  const newBook: Book = {
+    id: String(Date.now()), // Gera um ID único baseado no tempo
+    ...payload,
+  };
+  books.push(newBook);
+  return newBook;
+}

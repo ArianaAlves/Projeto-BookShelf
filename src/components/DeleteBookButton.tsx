@@ -1,35 +1,26 @@
+// components/DeleteBookButton.tsx
 "use client";
-import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { deleteBookAction } from '../app/lib/actions';
 
 export default function DeleteBookButton({ id }: { id: string }) {
-  const [loading, setLoading] = useState(false);
-  const router = useRouter();
-
-  async function handleDelete() {
-    if (!confirm("Tem certeza que deseja excluir este livro?")) return;
-
-    setLoading(true);
-    try {
-      const res = await fetch(`/api/books/${id}`, { method: "DELETE" });
-      if (!res.ok) throw new Error("Erro ao excluir");
-
-      router.push("/books"); // volta pra lista
-      router.refresh();
-    } catch (err) {
-      alert("Erro ao excluir. Tente novamente.");
-    } finally {
-      setLoading(false);
+  // A função que será chamada pelo formulário
+  // O `formData` é passado automaticamente
+  const handleDelete = async (formData: FormData) => {
+    if (!confirm('Tem certeza que deseja excluir este livro?')) {
+        return;
     }
-  }
+    await deleteBookAction(id);
+  };
 
   return (
-    <button
-      onClick={handleDelete}
-      disabled={loading}
-      className="px-3 py-2 bg-red-600 text-white rounded"
-    >
-      {loading ? "Excluindo..." : "Excluir"}
-    </button>
+    // Para usar Server Actions, o botão deve estar dentro de um <form>
+    <form action={handleDelete}>
+      <button
+        type="submit"
+        className="px-3 py-2 bg-red-600 text-white rounded"
+      >
+        Excluir
+      </button>
+    </form>
   );
 }
