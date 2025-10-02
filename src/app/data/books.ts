@@ -75,7 +75,7 @@ import type { Book } from "../../types/book";
 },
 
 {
-  id: "9",
+  id: "8",
   title: "A Biblioteca da Meia-Noite",
   author: "Matt Haig",
   genre: "ficção científica, fantasia",
@@ -85,13 +85,13 @@ import type { Book } from "../../types/book";
   cover: "/a-biblioteca.jpg",
 },
 {
-  id: "10",
+  id: "9",
   title: "Eu Sou a Lenda",
   author: "Richard Matheson",
   genre: "ficção científica",
   year:  2007,
   rating: 3,
-  synopsis: "Após uma praga transformar a humanidade em criaturas sedentas por sangue, Robert Neville acredita ser o último homem vivo. Isolado em um mundo dominado por monstros, ele luta para sobreviver enquanto busca entender a origem da epidemia — e seu próprio papel nela Everdeen se oferece para participar de um reality mortal em um futuro distópico, onde jovens lutam até a morte para entreter uma sociedade opressora.",
+  synopsis: "Após uma praga transformar a humanidade em criaturas sedentas por sangue, Robert Neville acredita ser o último homem vivo. Isolado em um mundo dominado por monstros, ele luta para sobreviver enquanto busca entender a origem da epidemia.",
   cover: "/eu-sou-a-lenda.jpg",
 },
 
