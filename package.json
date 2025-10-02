@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "migrate:data": "ts-node --project ./tsconfig.json prisma/seed/migrate-json-to-sqlite.ts"
   },
   "dependencies": {
     "@prisma/client": "^6.16.3",
