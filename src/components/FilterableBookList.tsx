@@ -1,7 +1,6 @@
 // components/FilterableBookList.tsx
 "use client";
 
-import { useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import BookCard from './BookCard';
@@ -16,34 +15,33 @@ export default function FilterableBookList({ books, genres }: Props) {
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  // A função de filtro agora acontece diretamente no servidor,
-  // mas podemos manter os controlos aqui.
-  const handleFilterChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const params = new URLSearchParams(searchParams);
-    params.set('genre', e.target.value);
-    router.push(`/biblioteca?${params.toString()}`);
-  };
-  
-  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const params = new URLSearchParams(searchParams);
-    params.set('q', e.target.value);
+  // Esta função cria a nova URL com os parâmetros de filtro e navega para ela.
+  const handleFilterChange = (key: 'genre' | 'q', value: string) => {
+    const params = new URLSearchParams(searchParams.toString());
+    if (value) {
+      params.set(key, value);
+    } else {
+      params.delete(key);
+    }
     router.push(`/biblioteca?${params.toString()}`);
   };
 
   return (
     <div>
       {/* Filtros */}
-      <div className="flex flex-wrap gap-4">
+      <div className="flex flex-col sm:flex-row gap-4 mb-6">
         <input
           type="text"
-          placeholder="Buscar livro..."
+          placeholder="Buscar por título ou autor..."
           defaultValue={searchParams.get('q') ?? ''}
-          onChange={handleSearchChange}
+          // Usamos onBlur para atualizar a busca quando o usuário sai do campo,
+          // ou pode ser trocado por onChange se a busca instantânea for preferida.
+          onChange={(e) => handleFilterChange('q', e.target.value)}
           className="border rounded-lg px-3 py-2 w-full sm:w-64"
         />
         <select
-          defaultValue={searchParams.get('genre') ?? 'Todos'}
-          onChange={handleFilterChange}
+          value={searchParams.get('genre') ?? 'Todos'}
+          onChange={(e) => handleFilterChange('genre', e.target.value)}
           className="border rounded-lg px-3 py-2"
         >
           <option value="Todos">Todos os Géneros</option>
@@ -54,16 +52,16 @@ export default function FilterableBookList({ books, genres }: Props) {
       </div>
 
       {/* Grid de livros */}
-      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-6 mt-6">
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
         {books.map((livro) => (
           <Link href={`/Books/${livro.id}`} key={livro.id}>
             <BookCard
-              titulo={livro.title}
-              autor={livro.author}
-              capa={livro.cover}
-              genero={livro.genre ?? ''}
-              ano={livro.year ?? 0}
-              avaliacao={livro.rating ?? 0}
+              title={livro.title}
+              author={livro.author}
+              cover={livro.cover}
+              genre={livro.genre} 
+              year={livro.year}
+              rating={livro.rating}
             />
           </Link>
         ))}

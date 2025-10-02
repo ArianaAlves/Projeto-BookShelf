@@ -1,41 +1,20 @@
-// app/Books/[id]/edit/page.tsx
-import BookForm from '../../../components/BookForm';
-import { updateBookAction } from '../../lib/actions'; // Importe a action
+/// app/Books/[id]/page.tsx
+import BookDetailsPage from '../../../components/BookDetailsPage';
+import { getBook } from '../../lib/db';
 import type { Book } from '../../../types/book';
 
-// A função getBook continua a mesma que antes
-async function getBook(id: string): Promise<Book | null> {
-  try {
-    const res = await fetch(`http://localhost:3000/api/books/${id}`, {
-      cache: 'no-store',
-    });
-    if (!res.ok) return null;
-    return res.json();
-  } catch (error) {
-    console.error(error);
-    return null;
-  }
-}
-
-export default async function EditBookPage({ params }: { params: { id: string } }) {
+// Esta é a página do servidor que busca os dados
+export default async function Page({ params }: { params: { id: string } }) {
   const book = await getBook(params.id);
 
   if (!book) {
-    return <p>Livro não encontrado.</p>;
+    return (
+        <div className="text-center p-10">
+            <p className="text-xl text-gray-600">Livro não encontrado.</p>
+        </div>
+    );
   }
 
-  // Prepara a action com o ID do livro, para que o formulário saiba qual livro atualizar
-  const updateBookWithId = updateBookAction.bind(null, book.id);
-
-  return (
-    <div className="p-6 max-w-2xl mx-auto">
-      <h1 className="text-2xl font-bold mb-4">Editar Livro</h1>
-      {/* Passamos as props corretas para o novo BookForm */}
-      <BookForm
-        initialValues={book}
-        action={updateBookWithId}
-        buttonText="Salvar Alterações"
-      />
-    </div>
-  );
+  // E então passa os dados para o componente de cliente que lida com a interface
+  return <BookDetailsPage book={book} />;
 }
