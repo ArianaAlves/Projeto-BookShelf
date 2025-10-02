@@ -2,8 +2,8 @@ import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
-// Buscar livros
-export const getBooks = async ({
+// Buscar vários livros (com filtros)
+export async function getBooks({
   search,
   genre,
   page = 1,
@@ -13,28 +13,36 @@ export const getBooks = async ({
   genre?: string;
   page?: number;
   pageSize?: number;
-}) => {
+}) {
   const where: any = {};
   if (search) {
     where.OR = [
       { title: { contains: search, mode: "insensitive" } },
       { author: { contains: search, mode: "insensitive" } },
+      { description: { contains: search, mode: "insensitive" } },
     ];
   }
-  if (genre) {
-    where.genre = genre;
-  }
+  if (genre) where.genre = genre;
 
-  const items = await prisma.book.findMany({
-    where,
-    skip: (page - 1) * pageSize,
-    take: pageSize,
+  const [items, total] = await Promise.all([
+    prisma.book.findMany({
+      where,
+      orderBy: { createdAt: "desc" },
+      skip: (page - 1) * pageSize,
+      take: pageSize,
+    }),
+    prisma.book.count({ where }),
+  ]);
+
+  return { items, total, page, pageSize };
+}
+
+// 🔑 Buscar livro por ID (para página [id]/page.tsx)
+export async function getBookById(id: string) {
+  return prisma.book.findUnique({
+    where: { id },
   });
-
-  const total = await prisma.book.count({ where });
-
-  return { items, total };
-};
+}
 
 // Buscar todos os gêneros
 export const getGenres = async (): Promise<string[]> => {
