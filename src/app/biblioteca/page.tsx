@@ -133,6 +133,18 @@ export default function Biblioteca() {
 
   return (
     <>
+    {/* Background decorativo biblioteca.png */}
+    <div
+      aria-hidden="true"
+      className="fixed inset-0 -z-30 pointer-events-none select-none"
+      style={{
+        backgroundImage: 'url(/biblioteca.png)',
+        backgroundRepeat: 'no-repeat',
+        backgroundPosition: 'center',
+        backgroundSize: 'cover',
+        opacity: 0.40
+      }}
+    />
     <div className="p-6 space-y-6">
       <div className="bg-gradient-to-r from-indigo-300 via-purple-300 to-purple-200 p-6 rounded-xl shadow">
         <h1 className="text-2xl font-bold text-white">📚 Minha Biblioteca</h1>
