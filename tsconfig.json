@@ -25,12 +25,11 @@
       {
         "name": "next"
       }
-    ]
+    ],
+    "baseUrl": "src"
   },
   "include": [
-    "**/*.ts",
-    "**/*.tsx",
-    "next-env.d.ts",
+    "src",
     ".next/types/**/*.ts"
   ],
   "exclude": [
