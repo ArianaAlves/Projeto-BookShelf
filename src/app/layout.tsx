@@ -15,7 +15,19 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>
+      <body className="relative">
+        {/* Background decorativo biblioteca.png em todas as páginas */}
+        <div
+          aria-hidden="true"
+          className="fixed inset-0 -z-30 pointer-events-none select-none"
+          style={{
+            backgroundImage: 'url(/biblioteca.png)',
+            backgroundRepeat: 'no-repeat',
+            backgroundPosition: 'center',
+            backgroundSize: 'cover',
+            opacity: 0.40
+          }}
+        />
         <Header />
         {children}
         <Footer />
