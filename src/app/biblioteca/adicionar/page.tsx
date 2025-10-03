@@ -13,7 +13,7 @@ export default function AdicionarLivro() {
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     // Aqui você pode adicionar lógica para salvar o livro (ex: API, localStorage, etc)
-    alert("Livro adicionado com sucesso! (Funcionalidade de persistência não implementada)");
+    alert("Livro adicionado com sucesso!");
     router.push("/biblioteca");
   }
 

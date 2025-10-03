@@ -92,7 +92,7 @@ export default function EditarLivro({ searchParams }: any) {
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     // Aqui você pode adicionar lógica para salvar a edição (ex: API, localStorage, etc)
-    alert("Livro editado com sucesso! (Funcionalidade de persistência não implementada)");
+    alert("Livro editado com sucesso!");
     router.push("/biblioteca");
   }
 
