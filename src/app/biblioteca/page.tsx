@@ -2,6 +2,8 @@
 import { useState, useEffect } from "react";
 import BookCard from "../../components/BookCard";
 import { useRouter } from "next/navigation";
+import { Listbox, Transition } from "@headlessui/react";
+import { Fragment } from "react";
 
 type Livro = {
   id: number;
@@ -146,37 +148,45 @@ export default function Biblioteca() {
       }}
     />
     <div className="p-6 space-y-6">
-      <div className="bg-gradient-to-r from-indigo-300 via-purple-300 to-purple-200 p-6 rounded-xl shadow">
-        <h1 className="text-2xl font-bold text-white">📚 Minha Biblioteca</h1>
-        <p className="text-gray-100 mt-2 text-sm">
-          Veja, filtre e gerencie seus livros cadastrados.
-        </p>
-        <br />
-      </div>
+        <div className="bg-gradient-to-r from-indigo-300 via-purple-300 to-purple-200 p-6 rounded-xl shadow-lg
+         flex w-full">
+          <div className="flex flex-col min-w-fit">
+            <h1 className="text-2xl font-bold text-white whitespace-nowrap mt-2">📚 Minha Biblioteca</h1>
+               <p className="text-gray-100 mt-2 text-sm">
+                 Veja, filtre e gerencie seus livros cadastrados.
+            </p>
+          </div>
+        
 
-      {/* Filtros */}
-      <div className="flex flex-wrap gap-4">
-        <input
-          type="text"
-          placeholder="Buscar livro..."
-          value={busca}
-          onChange={(e) => setBusca(e.target.value)}
-          className="border rounded-lg px-3 py-2 w-full sm:w-64"
-        />
 
-        <select
-          value={filtro}
-          onChange={(e) => setFiltro(e.target.value)}
-          className="border rounded-lg px-3 py-2"
-        >
-          <option value="Todos">Todos</option>
-          <option value="Drama">Drama</option>
-          <option value="Tragédia">Tragédia</option>
-          <option value="Romance">Romance</option>
-          <option value="Filosofia">Filosofia</option>
-          <option value="Romance Psicológico">Romance Psicológico</option>
-        </select>
-      </div>
+{/* Filtros */}
+<div className="flex gap-3 text-gray-900 w-full justify-end flex-col sm:flex-row sm:items-center mt-3 gap-4 mb-3">
+  <input
+    type="text"
+    placeholder="Buscar livro..."
+    value={busca}
+    onChange={(e) => setBusca(e.target.value)}
+    className=" rounded-lg px-3 py-2 w-full sm:w-40 text-gray-900 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-white focus:border-transparent"
+    
+  />
+
+  <select
+    value={filtro}
+    onChange={(e) => setFiltro(e.target.value)}
+    className=" rounded-lg px-0 py-2 text-gray-500 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-white focus:border-transparent  focus:bg-white/10"
+  >
+    <option value="Todos" className="text-gray-800">Todos</option>
+    <option value="Drama" className="text-gray-800">Drama</option>
+    <option value="Tragédia" className="text-gray-800">Tragédia</option>
+    <option value="Romance" className="text-gray-800">Romance</option>
+    <option value="Filosofia" className="text-gray-800">Filosofia</option>
+    <option value="Romance Psicológico" className="text-gray-800">Romance Psicológico</option>
+   </select>
+      <svg className="w-5 h-5 text-white absolute right-2 top-1/2 -translate-y-1/2 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path></svg>
+          </div>
+        </div>
+        
 
       {/* Grid de livros */}
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-6">
@@ -196,32 +206,7 @@ export default function Biblioteca() {
         ))}
       </div>
     </div>
-    {/* Lixeira no rodapé */}
-    <div className="fixed bottom-4 left-1/2 -translate-x-1/2 z-50">
-      {lixeira.length > 0 && (
-        <div className="bg-white shadow-lg rounded-xl px-6 py-4 flex flex-col items-center border border-gray-200">
-          <div className="flex items-center gap-2 mb-2">
-            <span className="text-lg">Lixeira</span>
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 text-red-500">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M6.75 7.5v10.125A2.625 2.625 0 009.375 20.25h5.25a2.625 2.625 0 002.625-2.625V7.5m-12 0h13.5m-10.125 0V5.625A2.625 2.625 0 0110.875 3h2.25a2.625 2.625 0 012.625 2.625V7.5" />
-            </svg>
-          </div>
-          <ul className="max-h-40 overflow-y-auto w-56">
-            {lixeira.map(livro => (
-              <li key={livro.id} className="flex justify-between items-center py-1 border-b last:border-b-0">
-                <span className="truncate max-w-[120px]">{livro.titulo}</span>
-                <button
-                  className="ml-2 text-xs text-indigo-600 hover:underline"
-                  onClick={() => handleRestore(livro.id)}
-                >
-                  Restaurar
-                </button>
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
-    </div>
+
     </>
   );
 }
