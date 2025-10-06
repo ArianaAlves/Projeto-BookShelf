@@ -1,9 +1,6 @@
-import { PrismaClient } from '@prisma/client';
+// src/lib/db.ts
+import { prisma } from "./prisma";
 
-
-const prisma = new PrismaClient();
-
-// Buscar vários livros (com filtros)
 export async function getBooks({
   search,
   genre,
@@ -38,31 +35,32 @@ export async function getBooks({
   return { items, total, page, pageSize };
 }
 
-// 🔑 Buscar livro por ID (para página [id]/page.tsx)
-export async function getBookById(id: string) {
-  return prisma.book.findUnique({
-    where: { id },
-  });
-}
-
-// Buscar todos os gêneros
-export const getGenres = async (): Promise<string[]> => {
+export async function getGenres(): Promise<string[]> {
   const genres = await prisma.book.findMany({
     select: { genre: true },
     distinct: ["genre"],
   });
+  return genres.map((g) => g.genre).filter(Boolean) as string[];
+}
 
-  // Tipando g explicitamente
-  return genres.map((g: { genre: string | null }) => g.genre).filter(Boolean) as string[];
-};
-
-// Outras funções já existentes
-export const createBook = async (data: {
+export const createBook = (data: {
   title: string;
   author: string;
-  genre?: string;
-  description?: string;
-}) => {
-  return prisma.book.create({ data });
-};
+  genre?: string | null;
+  description?: string | null;
+  year?: number | null;
+  rating?: number | null;
+  imageUrl?: string | null;
+}) => prisma.book.create({ data });
 
+export const updateBook = (id: number, data: Partial<{
+  title: string;
+  author: string;
+  genre: string | null;
+  description: string | null;
+  year: number | null;
+  rating: number | null;
+  imageUrl: string | null;
+}>) => prisma.book.update({ where: { id }, data });
+
+export const deleteBook = (id: number) => prisma.book.delete({ where: { id } });
