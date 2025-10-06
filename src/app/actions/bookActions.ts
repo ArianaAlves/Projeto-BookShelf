@@ -1,36 +1,38 @@
-import { revalidatePath } from 'next/cache';
+"use server";
+
+import { revalidatePath } from "next/cache";
 import { createBook, updateBook, deleteBook } from "../../lib/db";
 
-
 export async function createBookAction(formData: FormData) {
-  'use server';
-  const title = String(formData.get('title') ?? '');
-  const author = String(formData.get('author') ?? '');
-  const genre = String(formData.get('genre') ?? '');
-  const description = String(formData.get('description') ?? '');
+  const title = String(formData.get("title") ?? "").trim();
+  const author = String(formData.get("author") ?? "").trim();
+  const genre = (String(formData.get("genre") ?? "").trim() || null);
+  const description = (String(formData.get("description") ?? "").trim() || null);
+  const year = formData.get("year") ? Number(formData.get("year")) : null;
+  const rating = formData.get("rating") ? Number(formData.get("rating")) : null;
+  const imageUrl = (String(formData.get("imageUrl") ?? "").trim() || null);
 
-  if (!title || !author) throw new Error('title & author required');
+  if (!title || !author) throw new Error("Título e autor são obrigatórios.");
 
-  await createBook({ title, author, genre: genre || undefined, description: description || undefined });
-
-
-  revalidatePath('/books');
+  await createBook({ title, author, genre, description, year, rating, imageUrl });
+  revalidatePath("/biblioteca");
 }
 
-export async function updateBookAction(id: string, formData: FormData) {
-  'use server';
-  const title = String(formData.get('title') ?? '');
-  const author = String(formData.get('author') ?? '');
-  const genre = String(formData.get('genre') ?? '');
-  const description = String(formData.get('description') ?? '');
+export async function updateBookAction(id: number, formData: FormData) {
+  const title = String(formData.get("title") ?? "").trim();
+  const author = String(formData.get("author") ?? "").trim();
+  const genre = (String(formData.get("genre") ?? "").trim() || null);
+  const description = (String(formData.get("description") ?? "").trim() || null);
+  const year = formData.get("year") ? Number(formData.get("year")) : null;
+  const rating = formData.get("rating") ? Number(formData.get("rating")) : null;
+  const imageUrl = (String(formData.get("imageUrl") ?? "").trim() || null);
 
-  await updateBook(id, { title, author, genre: genre || undefined, description: description || undefined });
-  revalidatePath(`/books`);
-  revalidatePath(`/books/${id}`);
+  await updateBook(id, { title, author, genre, description, year, rating, imageUrl });
+  revalidatePath("/biblioteca");
+  revalidatePath(`/biblioteca/${id}`);
 }
 
-export async function deleteBookAction(id: string) {
-  'use server';
+export async function deleteBookAction(id: number) {
   await deleteBook(id);
-  revalidatePath('/books');
+  revalidatePath("/biblioteca");
 }
