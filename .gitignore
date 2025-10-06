@@ -54,3 +54,11 @@ yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 /src/generated/prisma
+
+# build & env
+.next
+node_modules
+.env
+prisma/dev.db
+# dev helpers
+*.http

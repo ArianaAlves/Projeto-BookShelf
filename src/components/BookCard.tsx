@@ -2,7 +2,6 @@
 import Image from "next/image";
 import { Badge } from "./ui/badge";
 
-// 1. Removemos onView, onEdit, onDelete das props
 interface BookCardProps {
   title: string;
   author: string;
@@ -21,9 +20,7 @@ export default function BookCard({
   rating,
 }: BookCardProps) {
   return (
-    // O div inteiro agora é clicável por causa do <Link> na página da biblioteca
     <div className="bg-white shadow rounded-xl p-4 flex flex-col items-center text-center transition-transform hover:scale-105">
-      
       <Image
         src={cover ?? "/fallback.jpg"}
         alt={title}
@@ -33,7 +30,9 @@ export default function BookCard({
       />
 
       <h2 className="text-sm font-semibold mt-2">{title}</h2>
-      <p className="text-xs text-gray-500">{author} • {year}</p>
+      <p className="text-xs text-gray-500">
+        {author} • {year}
+      </p>
 
       <Badge className="mt-1">{genre}</Badge>
 
@@ -44,8 +43,6 @@ export default function BookCard({
           </span>
         ))}
       </div>
-
-      {/* 2. Removemos a div que continha os botões */}
     </div>
   );
 }
