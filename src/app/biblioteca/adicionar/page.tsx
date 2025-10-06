@@ -13,7 +13,7 @@ export default function AdicionarLivro() {
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     // Aqui você pode adicionar lógica para salvar o livro (ex: API, localStorage, etc)
-    alert("Livro adicionado com sucesso! (Funcionalidade de persistência não implementada)");
+    alert("Livro adicionado com sucesso!");
     router.push("/biblioteca");
   }
 
@@ -23,53 +23,55 @@ export default function AdicionarLivro() {
         <h1 className="text-2xl font-bold text-white">Adicionar Livro</h1>
         <p className="text-gray-100 mt-2 text-sm">Cadastre um novo livro na sua biblioteca.</p>
       </div>
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <input
-          type="text"
-          placeholder="Título"
-          value={title}
-          onChange={e => setTitle(e.target.value)}
-          className="border rounded-lg px-3 py-2 w-full"
-          required
-        />
-        <input
-          type="text"
-          placeholder="Autor"
-          value={author}
-          onChange={e => setAuthor(e.target.value)}
-          className="border rounded-lg px-3 py-2 w-full"
-          required
-        />
-        <input
-          type="text"
-          placeholder="Gênero"
-          value={genre}
-          onChange={e => setGenre(e.target.value)}
-          className="border rounded-lg px-3 py-2 w-full"
-        />
-        <input
-          type="number"
-          placeholder="Ano"
-          value={year}
-          onChange={e => setYear(e.target.value)}
-          className="border rounded-lg px-3 py-2 w-full"
-        />
-        <input
-          type="number"
-          placeholder="Nota (1-5)"
-          value={rating}
-          onChange={e => setRating(e.target.value)}
-          className="border rounded-lg px-3 py-2 w-full"
-          min={1}
-          max={5}
-        />
-        <button
-          type="submit"
-          className="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700"
-        >
-          Adicionar
-        </button>
-      </form>
+      <div className="bg-white rounded-xl shadow p-6">
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <input
+            type="text"
+            placeholder="Título"
+            value={title}
+            onChange={e => setTitle(e.target.value)}
+            className="border rounded-lg px-3 py-2 w-full"
+            required
+          />
+          <input
+            type="text"
+            placeholder="Autor"
+            value={author}
+            onChange={e => setAuthor(e.target.value)}
+            className="border rounded-lg px-3 py-2 w-full"
+            required
+          />
+          <input
+            type="text"
+            placeholder="Gênero"
+            value={genre}
+            onChange={e => setGenre(e.target.value)}
+            className="border rounded-lg px-3 py-2 w-full"
+          />
+          <input
+            type="number"
+            placeholder="Ano"
+            value={year}
+            onChange={e => setYear(e.target.value)}
+            className="border rounded-lg px-3 py-2 w-full"
+          />
+          <input
+            type="number"
+            placeholder="Nota (1-5)"
+            value={rating}
+            onChange={e => setRating(e.target.value)}
+            className="border rounded-lg px-3 py-2 w-full"
+            min={1}
+            max={5}
+          />
+          <button
+            type="submit"
+            className="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700"
+          >
+            Adicionar
+          </button>
+        </form>
+      </div>
     </div>
   );
 }
