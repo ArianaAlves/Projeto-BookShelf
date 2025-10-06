@@ -2,7 +2,7 @@ import type { Book } from "../../types/book";
 
   export let books: Book[] = [
   {
-    id: "1",
+    id: 1,
     title: "A Cidade do Sol",
     author: "Khaled Hosseini",
     year: 2007,
@@ -13,7 +13,7 @@ import type { Book } from "../../types/book";
 
   },
   {
-    id: "2",
+    id: 2,
     title: "Hamlet",
     author: "William Shakespeare",
     year: 1600,
@@ -24,7 +24,7 @@ import type { Book } from "../../types/book";
   },
 
   {
-  id: "3",
+  id: 3,
   title: "A Menina que Roubava Livros",
   author: "Markus Zusak",
   genre: "Drama",
@@ -34,7 +34,7 @@ import type { Book } from "../../types/book";
   cover: "/menina-que-roubava-livros.jpg",
 },
 {
-  id: "4",
+  id: 4,
   title: "Verão de Lenço Vermelho",
   author: "Elena Malíssova e Katerina Silvánova",
   genre: "Romance",
@@ -44,7 +44,7 @@ import type { Book } from "../../types/book";
   cover: "/verao-de-lenco-vermelho.jpg",
 },
 {
-  id: "5",
+  id: 5,
   title: "Memórias do Subsolo",
   author: "Fiódor Dostoiévski",
   genre: "Filosofia",
@@ -54,7 +54,7 @@ import type { Book } from "../../types/book";
   cover: "/memorias-do-subsolo.jpg",
 },
 {
-  id: "6",
+  id: 6,
   title: "Crime e Castigo",
   author: "Fiódor Dostoiévski",
   genre: "Romance Psicológico",
@@ -64,7 +64,7 @@ import type { Book } from "../../types/book";
   cover: "/crime-e-castigo.jpg",
 },
 {
-  id: "7",
+  id: 7,
   title: "Razão e Sensibilidade",
   author: "Jane Austen",
   genre: "Romance",
@@ -75,7 +75,7 @@ import type { Book } from "../../types/book";
 },
 
 {
-  id: "8",
+  id: 8,
   title: "A Biblioteca da Meia-Noite",
   author: "Matt Haig",
   genre: "ficção científica, fantasia",
@@ -85,7 +85,7 @@ import type { Book } from "../../types/book";
   cover: "/a-biblioteca.jpg",
 },
 {
-  id: "9",
+  id: 9,
   title: "Eu Sou a Lenda",
   author: "Richard Matheson",
   genre: "ficção científica",
@@ -95,9 +95,35 @@ import type { Book } from "../../types/book";
   cover: "/eu-sou-a-lenda.jpg",
 },
 
-
-
-
-]
-
+{
+    id: 10,
+    title: 'Dom Casmurro',
+    author: 'Machado de Assis',
+    genre: 'Romance',
+    year: 1899,
+    rating: 5,
+    synopsis: "Bentinho narra sua vida e seu amor por Capitu, marcada por ciúmes e suspeitas de traição. A dúvida sobre a fidelidade dela nunca é esclarecida, deixando o leitor dividido entre realidade e imaginação.",
+    cover: "/dom-casmurro.jpg",
+  },
+  {
+    id: 11,
+    title: "O Pequeno Príncipe",
+    author: "Antoine de Saint-Exupéry",
+    genre: "Fábula",
+    year: 1943,
+    rating: 4.5,
+    synopsis: "Um menino vindo de outro planeta compartilha suas experiências com um piloto no deserto. A história é uma reflexão poética sobre amor, amizade e o que realmente importa na vida.",
+    cover: "/o-pequeno-principe.jpg",
+  },
+  {
+    id: 12,
+    title: 'Capitães da Areia',
+    author: 'Jorge Amado',
+    genre: 'Drama',
+    year: 1937,
+    rating: 4,
+    synopsis: "Um grupo de meninos de rua vive em Salvador, enfrentando miséria e exclusão. Liderados por Pedro Bala, eles lutam por sobrevivência e liberdade, revelando a dura realidade da infância marginalizada",
+    cover: "/capitão.jpg",
+  },
+];
 

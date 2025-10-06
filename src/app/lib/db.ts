@@ -21,7 +21,7 @@ export async function getBooks(query: string, genre: string): Promise<Book[]> {
   return filteredBooks;
 }
 
-export async function getBook(id: string): Promise<Book | undefined> {
+export async function getBook(id: number): Promise<Book | undefined> {
   return books.find(b => b.id === id);
 }
 
@@ -35,14 +35,14 @@ export async function getGenres(): Promise<string[]> {
 
 export async function addBook(payload: Omit<Book, 'id'>): Promise<Book> {
   const newBook: Book = {
-    id: String(Date.now()), // Gera um ID simples baseado no tempo.
+    id: Number(Date.now()), // Gera um ID simples baseado no tempo.
     ...payload,
   };
   books.push(newBook);
   return newBook;
 }
 
-export async function updateBook(id: string, payload: Partial<Book>): Promise<Book | null> {
+export async function updateBook(id: number, payload: Partial<Book>): Promise<Book | null> {
   const idx = books.findIndex(b => b.id === id);
   if (idx === -1) return null;
 
@@ -50,7 +50,7 @@ export async function updateBook(id: string, payload: Partial<Book>): Promise<Bo
   return books[idx];
 }
 
-export async function deleteBookById(id: string): Promise<boolean> {
+export async function deleteBookById(id: number): Promise<boolean> {
   const index = books.findIndex(b => b.id === id);
   if (index === -1) {
     return false;

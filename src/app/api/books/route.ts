@@ -1,5 +1,3 @@
-// app/api/books/route.ts
-// app/api/books/route.ts
 import { NextResponse } from 'next/server';
 import { books } from '../../data/books'; // Verifique se o caminho do import está correto
 

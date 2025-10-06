@@ -1,6 +1,6 @@
-// components/FilterableBookList.tsx
-"use client";
+'use client';
 
+import { useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import BookCard from './BookCard';
@@ -15,7 +15,9 @@ export default function FilterableBookList({ books, genres }: Props) {
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  // Esta função cria a nova URL com os parâmetros de filtro e navega para ela.
+  const [livrosVisiveis, setLivrosVisiveis] = useState<Book[]>(books);
+  const [lixeira, setLixeira] = useState<Book[]>([]);
+
   const handleFilterChange = (key: 'genre' | 'q', value: string) => {
     const params = new URLSearchParams(searchParams.toString());
     if (value) {
@@ -26,6 +28,11 @@ export default function FilterableBookList({ books, genres }: Props) {
     router.push(`/biblioteca?${params.toString()}`);
   };
 
+  const excluirLivro = (livro: Book) => {
+    setLivrosVisiveis(prev => prev.filter(b => b.id !== livro.id));
+    setLixeira(prev => [...prev, livro]);
+  };
+
   return (
     <div>
       {/* Filtros */}
@@ -34,8 +41,6 @@ export default function FilterableBookList({ books, genres }: Props) {
           type="text"
           placeholder="Buscar por título ou autor..."
           defaultValue={searchParams.get('q') ?? ''}
-          // Usamos onBlur para atualizar a busca quando o usuário sai do campo,
-          // ou pode ser trocado por onChange se a busca instantânea for preferida.
           onChange={(e) => handleFilterChange('q', e.target.value)}
           className="border rounded-lg px-3 py-2 w-full sm:w-64"
         />
@@ -51,17 +56,17 @@ export default function FilterableBookList({ books, genres }: Props) {
         </select>
       </div>
 
-      {/* Grid de livros */}
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
+      {/* Grid de livros (aqui está a parte importante) */}
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-6 mt-6">
         {books.map((livro) => (
           <Link href={`/Books/${livro.id}`} key={livro.id}>
             <BookCard
               title={livro.title}
               author={livro.author}
               cover={livro.cover}
-              genre={livro.genre} 
-              year={livro.year}
-              rating={livro.rating}
+              genre={livro.genre ?? ''}
+              year={livro.year ?? 0}
+              rating={livro.rating ?? 0}
             />
           </Link>
         ))}
@@ -69,3 +74,4 @@ export default function FilterableBookList({ books, genres }: Props) {
     </div>
   );
 }
+
