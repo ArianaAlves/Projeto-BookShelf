@@ -6,7 +6,7 @@ import { books } from '../../../data/books'; // Usado para encontrar o índice
 // GET /api/books/[id] - Obter detalhes de um livro
 export async function GET(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: { id: number } }
 ) {
   const book = await getBook(params.id);
   if (!book) {
@@ -18,7 +18,7 @@ export async function GET(
 // PUT /api/books/[id] - Atualizar um livro
 export async function PUT(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: { id: number } }
 ) {
   const book = await getBook(params.id);
   if (!book) {
@@ -34,7 +34,7 @@ export async function PUT(
 // DELETE /api/books/[id] - Remover um livro
 export async function DELETE(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: { id: number } }
 ) {
   const success = await deleteBookById(params.id);
   if (!success) {

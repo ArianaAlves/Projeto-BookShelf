@@ -13,11 +13,10 @@ export default function Header() {
     <Link href="/biblioteca" className="text-gray-600 hover:text-gray-900 transition-colors">
       Biblioteca
     </Link>
-    <Link href="/adicionar" className="text-gray-600 hover:text-gray-900 transition-colors">
+    <Link href="/biblioteca/adicionar" className="text-gray-600 hover:text-gray-900 transition-colors">
       Adicionar
     </Link>
   </nav>
 </header>
-
 
 )}

@@ -2,7 +2,7 @@ import { getBook } from "../../lib/db"; // Ajuste o caminho de importação
 import BookForm from "../../../components/BookForm"; // Ajuste o caminho de importação
 import type { Book } from "../../../types/book";
 
-export default async function EditPage({ params }: { params: { id: string } }) {
+export default async function EditPage({ params }: { params: { id: number } }) {
   const book = await getBook(params.id);
 
   if (!book) {
