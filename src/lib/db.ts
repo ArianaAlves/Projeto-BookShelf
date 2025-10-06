@@ -1,4 +1,5 @@
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient } from '@prisma/client';
+
 
 const prisma = new PrismaClient();
 
@@ -65,10 +66,3 @@ export const createBook = async (data: {
   return prisma.book.create({ data });
 };
 
-export const updateBook = async (id: number, data: any) => {
-  return prisma.book.update({ where: { id }, data });
-};
-
-export const deleteBook = async (id: number) => {
-  return prisma.book.delete({ where: { id } });
-};

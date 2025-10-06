@@ -18,3 +18,17 @@ main()
   .finally(async () => {
     await prisma.$disconnect();
   });
+
+  // services/index.ts
+const useMock = process.env.USE_MOCK === 'true';
+
+export const {
+  getBooks,
+  getBookById,
+  getGenres,
+  createBook,
+  updateBook,
+  deleteBook,
+} = useMock
+  ? require('./mockBookService')
+  : require('./bookService');

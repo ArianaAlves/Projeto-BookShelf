@@ -1,73 +1,26 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-generator client {
-  provider = "prisma-client-js"
-  output   = "./prisma"
-}
-
-// 🛑 IMPORTANTE: ALTERADO para SQLite (requisito do projeto)
-datasource db {
-  provider = "sqlite"
-  // O arquivo do banco de dados será criado no local definido pela variável DATABASE_URL.
-  // Por padrão, será "file:./dev.db" se você usar o .env padrão do Prisma.
-  url      = env("DATABASE_URL")
-}
-
-// 📚 ENUM para Status de Leitura (Requisito 1.6 - Parte 3)
-enum ReadingStatus {
-  QUERO_LER @default(QUERO_LER) // Valor padrão para novos livros e migração
-  LENDO
-  LIDO
-  PAUSADO
-  ABANDONADO
-}
-
-// 📖 MODELO DE GÊNERO (Requisito 1.5 - Parte 3)
-model Genre {
-  // Usando String (cuid) como ID para consistência
-  id    String @id @default(cuid())
-  name  String @unique // Garante que não haverá gêneros duplicados
-  books Book[] // Relação 1:N com Livros
-}
-
-// 📗 MODELO DE LIVRO EXPANDIDO (Requisito 1.4 - Parte 3)
 model Book {
-  // Campos Existentes na sua lista JSON original:
-  // Mudado para String (cuid) para flexibilidade e consistência com o ID do Genre.
-  // Seus IDs de migração (1, 2, 3...) serão salvos como Strings "1", "2", "3".
-  id          String @id @default(cuid()) 
+  id          String        @id @default(cuid())
   title       String
   author      String
-  
-  // Opcionais no JSON original, definidos como Int?
-  year        Int?
-  pages       Int? // Não estava no JSON, mas é um campo expandido
-  rating      Int? 
-  cover       String? // URL da capa
-  synopsis    String? // Sinopse completa
-  
-  // Novos Campos Obrigatórios (Requisito 1.4):
-  status      ReadingStatus @default(QUERO_LER) // Usando o Enum (type-safe)
-  currentPage Int           @default(0) // Página atual (para acompanhamento)
+  year        Int
+  pages       Int
+  rating      Float
+  synopsis    String
+  cover       String
+  status      ReadingStatus @default(QUERO_LER)
+  currentPage Int           @default(0)
   createdAt   DateTime      @default(now())
   updatedAt   DateTime      @updatedAt
-
-  // Novos Campos Opcionais (Requisito 1.4):
   isbn        String?
-  notes       String? @db.Text // @db.Text para notas longas, se o SQLite suportar
-  
-  // RELACIONAMENTO COM GÊNERO:
-  // genreName: Campo simples para guardar o nome do gênero (útil na migração).
-  genreName   String 
-  // genreId: Chave estrangeira para o relacionamento.
-  genreId     String? 
-  genre       Genre? @relation(fields: [genreId], references: [id])
+  notes       String?
+
+  // Relacionamento com Genre
+  genreId String
+  genre   Genre  @relation(fields: [genreId], references: [id])
 }
 
-// Mantido o modelo User existente
-model User {
-  id    Int     @id @default(autoincrement())
+model Genre {
+  id    String @id @default(cuid())
   name  String
-  email String  @unique
+  books Book[] // Relacionamento reverso
 }

@@ -3,3 +3,18 @@
 :root {
   --bg: #ffffff;
 }
+@layer base {
+  :root {
+    /* Variáveis para o tema claro (Light Mode) */
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+    /* ...outras variáveis de cor */
+  }
+
+  .dark {
+    /* Variáveis para o tema escuro (Dark Mode) */
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+    /* ...outras variáveis de cor */
+  }
+}

@@ -6,4 +6,5 @@ export interface Book {
   genre: string;
   rating: number;    
   cover?: string;
+  synopsis?: string;
 }
