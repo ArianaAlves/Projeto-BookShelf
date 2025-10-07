@@ -1,44 +1,20 @@
-import { getBookById } from "../../../../prisma/lib/db";
-import Link from "next/link";
+/// app/Books/[id]/page.tsx
+import BookDetailsPage from '../../../components/BookDetailsPage';
+import { getBook } from '../../lib/db';
+import type { Book } from '../../../types/book';
 
-export default async function BookDetailPage({
-  params,
-  searchParams,
-}: {
-  params: { id: string };
-  searchParams: Record<string, string | undefined>;
-}) {
-  const { id } = params;
-  const book = await getBookById(id);
-
-  // Preserva filtros da lista (ex: /books?search=harry)
-  const qs = new URLSearchParams();
-  if (searchParams.search) qs.set("search", searchParams.search);
-  if (searchParams.genre) qs.set("genre", searchParams.genre);
-  if (searchParams.page) qs.set("page", searchParams.page);
-  const currentQuery = qs.toString();
+// Esta é a página do servidor que busca os dados
+export default async function Page({ params }: { params: { id: string } }) {
+  const book = await getBook(Number(params.id));
 
   if (!book) {
     return (
-      <main className="p-6">
-        <p>Livro não encontrado.</p>
-        <Link href={`/books${currentQuery ? `?${currentQuery}` : ""}`}>
-          ← Voltar
-        </Link>
-      </main>
+        <div className="text-center p-10">
+            <p className="text-xl text-gray-600">Livro não encontrado.</p>
+        </div>
     );
   }
 
-  return (
-    <main className="p-6 space-y-4">
-      <Link href={`/books${currentQuery ? `?${currentQuery}` : ""}`}>
-        ← Voltar
-      </Link>
-
-      <h1 className="text-2xl font-bold">{book.title}</h1>
-      <p className="text-gray-700">Autor: {book.author}</p>
-      {book.genre && <p>Gênero: {book.genre}</p>}
-      {book.description && <p>Descrição: {book.description}</p>}
-    </main>
-  );
+  // E então passa os dados para o componente de cliente que lida com a interface
+  return <BookDetailsPage book={book} />;
 }
