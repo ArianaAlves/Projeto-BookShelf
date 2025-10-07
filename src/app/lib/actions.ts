@@ -3,7 +3,9 @@
 
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
-import { createBook, deleteBook, updateBook } from './db'; // <- Importe do novo ficheiro
+// O arquivo src/app/lib/db.ts exporta `addBook` e `deleteBookById`.
+// Aqui fazemos alias para preservar os nomes usados nas actions.
+import { createBook, deleteBook, updateBook } from './db';
 
 export async function deleteBookAction(id: number) {
   try {
