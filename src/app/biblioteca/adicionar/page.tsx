@@ -7,6 +7,7 @@ export default function AdicionarLivro() {
   const [author, setAuthor] = useState("");
   const [genre, setGenre] = useState("");
   const [year, setYear] = useState("");
+  const [pages, setPages] = useState("");
   const [rating, setRating] = useState("");
   const router = useRouter();
 
@@ -53,6 +54,13 @@ export default function AdicionarLivro() {
             placeholder="Ano"
             value={year}
             onChange={e => setYear(e.target.value)}
+            className="border rounded-lg px-3 py-2 w-full"
+          />
+          <input
+            type="number"
+            placeholder="Páginas"
+            value={pages}
+            onChange={e => setPages(e.target.value)}
             className="border rounded-lg px-3 py-2 w-full"
           />
           <input
