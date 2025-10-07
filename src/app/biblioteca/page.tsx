@@ -46,10 +46,12 @@ async function getGenres(): Promise<string[]> {
 
 // A página da biblioteca agora lê a URL para aplicar os filtros
 export default async function BibliotecaPage({ searchParams }: {
-  searchParams: { q?: string; genre?: string };
+  searchParams: Promise<{ q?: string; genre?: string }>;
 }) {
-  const query = searchParams.q || '';
-  const genre = searchParams.genre || 'Todos';
+ const params = await searchParams;
+
+  const query = params.q || '';
+  const genre = params.genre || 'Todos';
 
 
   // Busca os dados no servidor já com os filtros aplicados
