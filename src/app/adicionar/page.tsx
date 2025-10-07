@@ -6,7 +6,7 @@ import type { Book } from '../../types/book';
 export default function AddBookPage() {
   // Criamos um objeto `Book` vazio para passar ao formulário
   const emptyBook: Book = {
-    id: '', // O ID será gerado no servidor
+    id: 0, // O ID será gerado no servidor
     title: '',
     author: '',
     year: new Date().getFullYear(),
