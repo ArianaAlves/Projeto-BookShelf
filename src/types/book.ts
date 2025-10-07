@@ -1,5 +1,5 @@
-export interface Book {
-  id: number;
+export type Book = {
+  id?: number;
   title: string;
   author: string;
   year: number;
