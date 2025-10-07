@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 "use client";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
@@ -41,3 +42,7 @@ export default function Biblioteca() {
     </div>
   );
 }
+=======
+import { redirect } from 'next/navigation';
+export default function Page(){ redirect('/biblioteca'); }
+>>>>>>> cb6adc741c882b4835eaf5b66b4fc908da90c50a

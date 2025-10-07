@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /// app/Books/[id]/page.tsx
 import BookDetailsPage from '../../../components/BookDetailsPage';
 import { getBook } from '../../lib/db';
@@ -18,3 +19,7 @@ export default async function Page({ params }: { params: { id: string } }) {
   // E então passa os dados para o componente de cliente que lida com a interface
   return <BookDetailsPage book={book} />;
 }
+=======
+import { redirect } from 'next/navigation';
+export default function Page(){ redirect('/biblioteca'); }
+>>>>>>> cb6adc741c882b4835eaf5b66b4fc908da90c50a
