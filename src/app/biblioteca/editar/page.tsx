@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 const livros = [
   {
@@ -91,20 +91,19 @@ export default function EditarLivro({ searchParams }: any) {
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    // Aqui você pode adicionar lógica para salvar a edição (ex: API, localStorage, etc)
     alert("Livro editado com sucesso!");
     router.push("/biblioteca");
   }
 
   if (!livro) {
-    return <div className="p-6">Livro não encontrado.</div>;
+    return <div className="p-6 text-center text-red-500 font-semibold">Livro não encontrado.</div>;
   }
 
   return (
-    <div className="p-6 max-w-lg mx-auto">
-      <div className="bg-gradient-to-r from-indigo-300 via-purple-300 to-purple-200 p-6 rounded-xl shadow mb-6">
+    <div className="p-6 max-w-lg mx-auto rounded-2xl bg-white">
+      <div className="bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-300 p-6 rounded-xl shadow-lg mb-6">
         <h1 className="text-2xl font-bold text-white">Editar Livro</h1>
-        <p className="text-gray-100 mt-2 text-sm">Altere as informações do livro.</p>
+        <p className="text-white/90 mt-2 text-sm">Altere as informações do livro.</p>
       </div>
       <form onSubmit={handleSubmit} className="space-y-4">
         <input
@@ -112,7 +111,7 @@ export default function EditarLivro({ searchParams }: any) {
           placeholder="Título"
           value={title}
           onChange={e => setTitle(e.target.value)}
-          className="border rounded-lg px-3 py-2 w-full"
+          className="border border-gray-300 rounded-lg px-3 py-2 w-full focus:ring-2 focus:ring-indigo-400 focus:outline-none transition"
           required
         />
         <input
@@ -120,7 +119,7 @@ export default function EditarLivro({ searchParams }: any) {
           placeholder="Autor"
           value={author}
           onChange={e => setAuthor(e.target.value)}
-          className="border rounded-lg px-3 py-2 w-full"
+          className="border border-gray-300 rounded-lg px-3 py-2 w-full focus:ring-2 focus:ring-indigo-400 focus:outline-none transition"
           required
         />
         <input
@@ -128,21 +127,21 @@ export default function EditarLivro({ searchParams }: any) {
           placeholder="Gênero"
           value={genre}
           onChange={e => setGenre(e.target.value)}
-          className="border rounded-lg px-3 py-2 w-full"
+          className="border border-gray-300 rounded-lg px-3 py-2 w-full focus:ring-2 focus:ring-indigo-400 focus:outline-none transition"
         />
         <input
           type="number"
           placeholder="Ano"
           value={year}
           onChange={e => setYear(e.target.value)}
-          className="border rounded-lg px-3 py-2 w-full"
+          className="border border-gray-300 rounded-lg px-3 py-2 w-full focus:ring-2 focus:ring-indigo-400 focus:outline-none transition"
         />
         <input
           type="number"
           placeholder="Nota (1-5)"
           value={rating}
           onChange={e => setRating(e.target.value)}
-          className="border rounded-lg px-3 py-2 w-full"
+          className="border border-gray-300 rounded-lg px-3 py-2 w-full focus:ring-2 focus:ring-indigo-400 focus:outline-none transition"
           min={1}
           max={5}
         />
@@ -151,11 +150,11 @@ export default function EditarLivro({ searchParams }: any) {
           placeholder="URL da capa (opcional)"
           value={cover}
           onChange={e => setCover(e.target.value)}
-          className="border rounded-lg px-3 py-2 w-full"
+          className="border border-gray-300 rounded-lg px-3 py-2 w-full focus:ring-2 focus:ring-indigo-400 focus:outline-none transition"
         />
         <button
           type="submit"
-          className="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700"
+          className="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition shadow-sm"
         >
           Salvar alterações
         </button>
