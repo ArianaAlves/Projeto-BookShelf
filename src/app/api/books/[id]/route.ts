@@ -1,6 +1,6 @@
 // app/api/books/[id]/route.ts
 import { NextResponse } from 'next/server';
-import { getBook, updateBook, deleteBookById } from '../../../lib/db'; // Ajuste o caminho
+import { getBook, updateBookById, deleteBookById } from '../../../../../prisma/lib/db'; // Ajuste o caminho
 import { books } from '../../../data/books'; // Usado para encontrar o índice
 
 // GET /api/books/[id] - Obter detalhes de um livro
@@ -26,7 +26,7 @@ export async function PUT(
   }
 
   const body = await request.json();
-  const updatedBook = await updateBook(params.id, body);
+  const updatedBook = await updateBookById(params.id, body);
 
   return NextResponse.json(updatedBook);
 }
