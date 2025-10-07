@@ -33,7 +33,7 @@ export async function getGenres(): Promise<string[]> {
 }
 
 
-export async function addBook(payload: Omit<Book, 'id'>): Promise<Book> {
+export async function createBook(payload: Omit<Book, 'id'>): Promise<Book> {
   const newBook: Book = {
     id: Number(Date.now()), // Gera um ID simples baseado no tempo.
     ...payload,
@@ -50,7 +50,7 @@ export async function updateBook(id: number, payload: Partial<Book>): Promise<Bo
   return books[idx];
 }
 
-export async function deleteBookById(id: number): Promise<boolean> {
+export async function deleteBook(id: number): Promise<boolean> {
   const index = books.findIndex(b => b.id === id);
   if (index === -1) {
     return false;
