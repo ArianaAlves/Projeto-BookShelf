@@ -5,7 +5,7 @@ import type { Book } from '../../../types/book';
 
 // Esta é a página do servidor que busca os dados
 export default async function Page({ params }: { params: { id: string } }) {
-  const book = await getBook(params.id);
+  const book = await getBook(Number(params.id));
 
   if (!book) {
     return (
