@@ -1,7 +1,9 @@
 import "./globals.css";
+import { ThemeProvider } from "../components/theme-provider"
 import type { Metadata } from "next";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+
 
 export const metadata: Metadata = {
   title: "Bookshelf",
@@ -14,8 +16,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+      <html lang="en" suppressHydrationWarning>
       <body className="relative">
+            <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+
         {/* Background decorativo biblioteca.png em todas as páginas */}
         <div
           aria-hidden="true"
@@ -31,6 +40,7 @@ export default function RootLayout({
         <Header />
         {children}
         <Footer />
+        </ThemeProvider>
       </body>
     </html>
   );

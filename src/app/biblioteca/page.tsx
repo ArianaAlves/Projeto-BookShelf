@@ -2,8 +2,8 @@
 import { useState, useEffect } from "react";
 import BookCard from "../../components/BookCard";
 import { useRouter } from "next/navigation";
-import { Listbox, Transition } from "@headlessui/react";
-import { Fragment } from "react";
+// import { Listbox, Transition } from "@headlessui/react";
+// import { Fragment } from "react";
 
 type Livro = {
   id: number;
@@ -20,7 +20,7 @@ const livrosOriginais: Livro[] = [
     id: 1,
     titulo: "A Cidade do Sol",
     autor: "Khaled Hosseini",
-    capa: "/cidade-do-sol.png",
+    capa: "/cidade-do-sol.jpg",
     genero: "Drama",
     ano: 2007, 
     rating: 5,
@@ -38,7 +38,7 @@ const livrosOriginais: Livro[] = [
     id: 3,
     titulo: "A Menina que Roubava Livros",
     autor: "Markus Zusak",
-    capa: "/menina-que-roubava-livros.png",
+    capa: "/menina-que-roubava-livros.jpg",
     genero: "Drama",
     ano: 2005, 
     rating: 5,
@@ -47,7 +47,7 @@ const livrosOriginais: Livro[] = [
     id: 4,
     titulo: "Verão de Lenço Vermelho",
     autor: "Elena Malíssova e Katerina Silvánova ",
-    capa: "/verao-lenco-vermelho.png",
+    capa: "/verao-lenco-vermelho.jpg",
     genero: "Romance",
     ano: 2024, 
     rating: 5,
@@ -56,7 +56,7 @@ const livrosOriginais: Livro[] = [
     id: 5,
     titulo: "Memórias do Subsolo",
     autor: "Fiódor Dostoiévski",
-    capa: "/memorias-do-subsolo.png",
+    capa: "/memorias-do-subsolo.jpg",
     genero: "Filosofia",
     ano: 1824, 
     rating: 5,
@@ -65,7 +65,7 @@ const livrosOriginais: Livro[] = [
     id: 6,
     titulo: "Crime e Castigo",
     autor: "Fiódor Dostoiévski",
-    capa: "/crime-e-castigo.png",
+    capa: "/crime-e-castigo.jpg",
     genero: "Romance Psicológico",
     ano: 1866, 
     rating: 5,
@@ -120,6 +120,8 @@ export default function Biblioteca() {
   }
 
   function handleDelete(id: number) {
+    const confirmar = window.confirm("Tem certeza que deseja excluir este livro?");
+    if (!confirmar) return;
     const livroRemovido = livros.find(l => l.id === id);
     if (!livroRemovido) return;
     setLivros(livros.filter(l => l.id !== id));
@@ -148,32 +150,37 @@ export default function Biblioteca() {
       }}
     />
     <div className="p-6 space-y-6">
-        <div className="bg-gradient-to-r from-indigo-300 via-purple-300 to-purple-200 p-6 rounded-xl shadow-lg
-         flex w-full">
-          <div className="flex flex-col min-w-fit">
-            <h1 className="text-2xl font-bold text-white whitespace-nowrap mt-2">📚 Minha Biblioteca</h1>
-               <p className="text-gray-100 mt-2 text-sm">
-                 Veja, filtre e gerencie seus livros cadastrados.
-            </p>
-          </div>
+      <div className="bg-gradient-to-r from-indigo-300 via-purple-300 to-purple-200 
+        dark:from-zinc-800 dark:via-zinc-700 dark:to-zinc-600 
+        p-6 rounded-xl shadow-lg flex w-full">
         
+        <div className="flex flex-col min-w-fit">
+          <h1 className="text-2xl font-bold text-white dark:text-zinc-100 whitespace-nowrap mt-2">
+            Minha Biblioteca
+          </h1>
+          <p className="text-gray-100 dark:text-zinc-400 mt-2 text-sm">
+            Veja, filtre e gerencie seus livros cadastrados.
+          </p>
+        </div>
+
+            
 
 
 {/* Filtros */}
-<div className="flex gap-3 text-gray-900 w-full justify-end flex-col sm:flex-row sm:items-center mt-3 gap-4 mb-3">
+<div className="flex text-gray-900 dark:text-gray-900 w-full justify-end flex-col sm:flex-row sm:items-center mt-3 gap-4 mb-3">
   <input
     type="text"
     placeholder="Buscar livro..."
     value={busca}
     onChange={(e) => setBusca(e.target.value)}
-    className=" rounded-lg px-3 py-2 w-full sm:w-40 text-gray-900 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-white focus:border-transparent"
+    className=" rounded-lg px-3 py-2 w-full sm:w-40 text-gray-900 dark:text-white transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-white focus:border-transparent"
     
   />
 
   <select
     value={filtro}
     onChange={(e) => setFiltro(e.target.value)}
-    className=" rounded-lg px-0 py-2 text-gray-500 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-white focus:border-transparent  focus:bg-white/10"
+    className=" rounded-lg px-0 py-2 text-gray-500 dark:text-white transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-white focus:border-transparent  focus:bg-white/10"
   >
     <option value="Todos" className="text-gray-800">Todos</option>
     <option value="Drama" className="text-gray-800">Drama</option>

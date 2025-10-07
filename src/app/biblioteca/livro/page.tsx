@@ -10,6 +10,7 @@ const livros = [
     genero: "Drama",
     ano: 2007,
     rating: 5,
+
   },
   {
     id: 2,
@@ -19,6 +20,7 @@ const livros = [
     genero: "Tragédia",
     ano: 1600,
     rating: 5,
+
   },
   {
     id: 3,
@@ -28,6 +30,7 @@ const livros = [
     genero: "Drama",
     ano: 2005,
     rating: 5,
+
   },
   {
     id: 4,
@@ -37,6 +40,7 @@ const livros = [
     genero: "Romance",
     ano: 2024,
     rating: 5,
+
   },
   {
     id: 5,
@@ -46,6 +50,7 @@ const livros = [
     genero: "Filosofia",
     ano: 1824,
     rating: 5,
+
   },
   {
     id: 6,
@@ -55,6 +60,7 @@ const livros = [
     genero: "Romance Psicológico",
     ano: 1866,
     rating: 5,
+
   },
   {
     id: 7,
@@ -82,12 +88,14 @@ export default function LivroPage({ searchParams }: any) {
         <p className="text-gray-100 mt-2 text-sm">Informações do livro</p>
       </div>
       <div className="bg-white rounded-xl shadow p-6 flex flex-col items-center">
-        <img
-          src={livro.capa.startsWith('http') ? livro.capa : `${livro.capa}`}
-          alt={livro.titulo}
-          className="w-32 h-48 object-cover rounded mb-4"
-          onError={e => (e.currentTarget.src = '/fallback.jpg')}
-        />
+      <img
+        src={livro.capa.startsWith("http") ? livro.capa : livro.capa} 
+        alt={livro.titulo}
+        className="w-32 h-48 object-cover rounded mb-4"
+        onError={(e) => {
+          e.currentTarget.src = "/fallback.jpg"; 
+        }}
+      />
         <h2 className="text-xl font-semibold mb-2">{livro.titulo}</h2>
         <p className="text-gray-700 mb-1">Autor: {livro.autor}</p>
         <p className="text-gray-700 mb-1">Gênero: {livro.genero}</p>
