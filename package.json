@@ -2,12 +2,14 @@
   "name": "bookshelf",
   "version": "0.1.0",
   "private": true,
+  "prisma": {
+    "seed": "tsx prisma/seed.ts"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
-    "migrate:data": "ts-node --project ./tsconfig.json prisma/seed/migrate-json-to-sqlite.ts"
+    "lint": "next lint"
   },
   "dependencies": {
     "@headlessui/react": "^2.2.9",

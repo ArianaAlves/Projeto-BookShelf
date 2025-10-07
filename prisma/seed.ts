@@ -1,37 +1,37 @@
+// prisma/seed.ts
+// prisma/seed.ts
 import { PrismaClient } from "@prisma/client";
-
-// IMPORTA sua fonte real
-// caminho relativo: de prisma/ até src/app/data/book.ts
 import { books as seedBooks } from "../src/app/data/books";
 
 const prisma = new PrismaClient();
 
 async function main() {
-  for (const b of seedBooks) {
-    await prisma.book.upsert({
-      // usa a UNIQUE composta do schema
-      where: { title_author: { title: b.title, author: b.author } },
-      update: {
-        genre: b.genre ?? null,
-        year: b.year ?? null,
-        rating: typeof b.rating === "number" ? b.rating : null,
-        imageUrl: b.cover ?? null,
-        description: (b as any).synopsis ?? null, // mapeia synopsis -> description
-      },
-      create: {
-        title: b.title,
-        author: b.author,
-        genre: b.genre ?? null,
-        year: b.year ?? null,
-        rating: typeof b.rating === "number" ? b.rating : null,
-        imageUrl: b.cover ?? null,
-        description: (b as any).synopsis ?? null,
+  console.log("Iniciando o processo de seed...");
+  await prisma.book.deleteMany({});
+  console.log("Base de dados limpa.");
+
+  for (const book of seedBooks) {
+    await prisma.book.create({
+      data: {
+        title: book.title,
+        author: book.author,
+        genre: book.genre,
+        year: book.year,
+        rating: book.rating,
+        // Mapeamento direto porque os nomes agora são iguais
+        cover: book.cover,
+        synopsis: book.synopsis,
       },
     });
   }
-  console.log("Seed concluído a partir de src/app/data/books.ts");
+  console.log(`✅ ${seedBooks.length} livros foram inseridos com sucesso.`);
 }
 
 main()
-  .catch((e) => { console.error(e); process.exit(1); })
-  .finally(() => prisma.$disconnect());
+  .catch((e) => {
+    console.error("Ocorreu um erro durante o seed:", e);
+    process.exit(1);
+  })
+  .finally(async () => {
+    await prisma.$disconnect();
+  });

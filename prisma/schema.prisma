@@ -11,16 +11,17 @@ datasource db {
 }
 
 model Book {
-  id        Int      @id @default(autoincrement())
-  title     String
-  author    String
-  genre     String?
+  id          Int      @id @default(autoincrement())
+  title       String
+  author      String
+  genre       String?
   description String?
-  year      Int?
-  rating    Float?
-  imageUrl    String?
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  year        Int?
+  rating      Float?
+  synopsis    String?
+  cover       String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 
   @@unique([title, author])
 }

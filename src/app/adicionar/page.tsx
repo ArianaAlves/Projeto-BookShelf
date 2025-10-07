@@ -1,12 +1,12 @@
 import BookForm from '../../components/BookForm';
-import { createBookAction } from '../lib/actions';
+import { createBookAction } from '../actions/bookActions';
 import type { Book } from '../../types/book';
 
 // Página para adicionar um novo livro
 export default function AddBookPage() {
   // Criamos um objeto `Book` vazio para passar ao formulário
   const emptyBook: Book = {
-    id: '', // O ID será gerado no servidor
+    id: , // O ID será gerado no servidor
     title: '',
     author: '',
     year: new Date().getFullYear(),

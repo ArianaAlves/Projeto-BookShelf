@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import { updateBookAction, deleteBookAction } from "../app/lib/actions";
+import { updateBookAction, deleteBookAction } from "../lib/actions";
 import { Button } from "../components/ui/button";
 import { Badge } from "../components/ui/badge";
 import BookForm from "../components/BookForm";

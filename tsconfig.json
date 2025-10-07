@@ -31,7 +31,7 @@
   "include": [
     "src",
     ".next/types/**/*.ts"
-  ],
+, "prisma/migrate-json-to-sqlite.ts", "prisma/lib"  ],
   "exclude": [
     "node_modules"
   ]
