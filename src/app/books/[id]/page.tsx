@@ -1,4 +1,4 @@
-import { getBookById } from "../../../lib/db";
+import { getBookById } from "../../../../prisma/lib/db";
 import Link from "next/link";
 
 export default async function BookDetailPage({

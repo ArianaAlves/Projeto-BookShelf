@@ -1,4 +1,4 @@
-import prisma from './prismadb';
+import prisma from '../../../../../prisma/lib/prismadb';
 
 type GetBooksParams = {
   search?: string;

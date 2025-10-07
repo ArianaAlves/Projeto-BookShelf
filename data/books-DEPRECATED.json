@@ -1,0 +1,65 @@
+[
+  {
+    "id": "1",
+    "title": "A Cidade do Sol",
+    "author": "Khaled Hosseini",
+    "cover": "/cidade-do-sol.png",
+    "genre": "Drama",
+    "year": 2007,
+    "rating": 5
+  },
+  {
+    "id": "2",
+    "title": "Hamlet",
+    "author": "William Shakespeare",
+    "cover": "/hamlet.png",
+    "genre": "Tragédia",
+    "year": 1600,
+    "rating": 5
+  },
+  {
+    "id": "3",
+    "title": "A Menina que Roubava Livros",
+    "author": "Markus Zusak",
+    "cover": "/menina-que-roubava-livros.png",
+    "genre": "Drama",
+    "year": 2005,
+    "rating": 5
+  },
+  {
+    "id": "4",
+    "title": "Verão de Lenço Vermelho",
+    "author": "Elena Malíssova e Katerina Silvánova ",
+    "cover": "/verao-lenco-vermelho.png",
+    "genre": "Romance",
+    "year": 2024,
+    "rating": 5
+  },
+  {
+    "id": "5",
+    "title": "Memórias do Subsolo",
+    "author": "Fiódor Dostoiévski",
+    "cover": "/memorias-do-subsolo.png",
+    "genre": "Filosofia",
+    "year": 1824,
+    "rating": 5
+  },
+  {
+    "id": "6",
+    "title": "Crime e Castigo",
+    "author": "Fiódor Dostoiévski",
+    "cover": "/crime-e-castigo.png",
+    "genre": "Romance Psicológico",
+    "year": 1866,
+    "rating": 5
+  },
+  {
+    "id": "7",
+    "title": "Razão e Sensibilidade",
+    "author": "Jane Austen",
+    "cover": "/razao-e-sensibilidade.png",
+    "genre": "Romance",
+    "year": 1811,
+    "rating": 4
+  }
+]

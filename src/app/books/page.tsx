@@ -1,59 +1,43 @@
-import { getBooks, getGenres } from "../../lib/db";
-import FiltersPanel from "../../components/FiltersPanel";
-import BookList from "../../components/BookList";
-import AddBookForm from "../../components/AddBookForm";
-import { createBookAction } from "../actions/bookActions";
+"use client";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import BookCard from "../../components/BookCard";
 
+const livros = [
+  { id: "1", titulo: "A Cidade do Sol", autor: "Khaled Hosseini", capa: "/cidade-do-sol.png", genero: "Drama", ano: 2007, rating: 5 },
+  { id: "2", titulo: "Hamlet", autor: "William Shakespeare", capa: "/hamlet.png", genero: "Tragédia", ano: 1600, rating: 5 },
+];
 
-// ✅ Definindo o tipo de cada livro
-type BookType = {
-  id: number;
-  title: string;
-  author: string;
-  genre?: string | null;
-  description?: string | null;
-  year?: number | null;
-  rating?: number | null;
-};
+export default function Biblioteca() {
+  const router = useRouter();
+  const [data, setData] = useState(livros);
 
-export default async function BooksPage({
-  searchParams,
-}: {
-  searchParams: Record<string, string | undefined>;
-}) {
-  // Lê filtros da URL
-  const search = searchParams.search;
-  const genre = searchParams.genre;
-  const page = searchParams.page ? Number(searchParams.page) : 1;
-
-  // Busca dados do banco
-  const { items: books } = await getBooks({ search, genre, page, pageSize: 12 });
-  const genres = await getGenres();
+  function handleDelete(id: string) {
+    if (confirm("Excluir livro?")) {
+      fetch(`/api/books/${id}`, { method: "DELETE" })
+        .then(() => setData(data.filter((b) => b.id !== id)));
+    }
+  }
 
   return (
-    <main className="p-6 space-y-6">
-      <h1 className="text-2xl font-bold">📚 Livros</h1>
-
-      {/* Filtros persistentes na URL */}
-      <FiltersPanel genres={genres} />
-
-      {/* Formulário para adicionar novo livro */}
-      <AddBookForm />
-
-      {/* Lista de livros */}
-     <BookList
-  books={books.map((b: BookType) => ({
-    id: b.id,
-    titulo: b.title,
-    autor: b.author,
-    genero: b.genre ?? "Sem gênero",
-    ano: b.year ?? 2024,
-    avaliacao: b.rating ?? 4,
-  }))}
-  onView={(id) => console.log("Ver livro:", id)}
-  onEdit={(id) => console.log("Editar livro:", id)}
-  onDelete={(id) => console.log("Excluir livro:", id)}
-/>
-    </main>
+    <div className="p-6">
+      <h1 className="text-2xl font-bold mb-6">📚 Minha Biblioteca</h1>
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-6">
+        {data.map((livro) => (
+          <BookCard
+            key={livro.id}
+            titulo={livro.titulo}
+            autor={livro.autor}
+            capa={livro.capa}
+            genero={livro.genero}
+            ano={livro.ano}
+            avaliacao={livro.rating}
+            onView={() => router.push(`/books/${livro.id}`)}
+            onEdit={() => router.push(`/books/${livro.id}/edit`)}
+            onDelete={() => handleDelete(livro.id)}
+          />
+        ))}
+      </div>
+    </div>
   );
 }

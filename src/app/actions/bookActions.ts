@@ -1,5 +1,5 @@
 import { revalidatePath } from 'next/cache';
-import { createBook, updateBook, deleteBook } from "../../lib/db";
+import { createBook, updateBook, deleteBook } from "../../../prisma/lib/db";
 
 
 export async function createBookAction(formData: FormData) {
