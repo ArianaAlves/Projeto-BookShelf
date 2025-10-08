@@ -1,16 +1,23 @@
-import { PrismaClient } from "@prisma/client";
+// src/index.ts
+import { PrismaClient } from "../generated/prisma";
 
 const prisma = new PrismaClient();
 
 async function main() {
-  const user = await prisma.user.create({
+  // Usando um ID simples que funciona com o schema atual
+  const bookId = Date.now().toString();
+  
+  const book = await prisma.book.create({
     data: {
-      name: "Test User",
-      email: "testuser@example.com",
+      id: bookId,
+      title: "Livro de Teste",
+      author: "Autor de Teste",
+      year: 2024,
+      rating: 4.5,
     },
   });
 
-  console.log("Novo usuário:", user);
+  console.log("Novo livro:", book);
 }
 
 main()
@@ -18,17 +25,3 @@ main()
   .finally(async () => {
     await prisma.$disconnect();
   });
-
-  // services/index.ts
-const useMock = process.env.USE_MOCK === 'true';
-
-export const {
-  getBooks,
-  getBookById,
-  getGenres,
-  createBook,
-  updateBook,
-  deleteBook,
-} = useMock
-  ? require('./mockBookService')
-  : require('./bookService');
