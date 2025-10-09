@@ -1,0 +1,14 @@
+{
+  "extends": [
+    "next/core-web-vitals"
+  ],
+  "ignorePatterns": [
+    "node_modules/**",
+    ".next/**",
+    "out/**",
+    "build/**",
+    "dist/**",
+    ".vercel/**",
+    "next-env.d.ts"
+  ]
+}
