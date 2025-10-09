@@ -3,7 +3,6 @@
 
 :root {
   --bg: #ffffff;
-<<<<<<< HEAD
   --radius: 0.625rem;
   --background: oklch(1 0 0);
   --foreground: oklch(0.141 0.005 285.823);
@@ -116,21 +115,5 @@
   }
   body {
     @apply bg-background text-foreground;
-=======
-}
-@layer base {
-  :root {
-    /* Variáveis para o tema claro (Light Mode) */
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
-    /* ...outras variáveis de cor */
-  }
-
-  .dark {
-    /* Variáveis para o tema escuro (Dark Mode) */
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-    /* ...outras variáveis de cor */
->>>>>>> main
   }
 }
