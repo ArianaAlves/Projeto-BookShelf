@@ -1,0 +1,45 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// Models added to support the seed/migration script
+enum ReadingStatus {
+  QUERO_LER
+  LENDO
+  LIDO
+}
+
+model Genre {
+  id    String @id @default(uuid())
+  name  String @unique
+  books Book[] @relation("GenreBooks")
+}
+
+model Book {
+  id          String        @id
+  title       String
+  author      String
+  year        Int?
+  rating      Float?
+  cover       String?
+  genreName   String?
+  genreId     String?
+  genre       Genre?        @relation(fields: [genreId], references: [id], name: "GenreBooks")
+  synopsis    String?
+  status      ReadingStatus @default(QUERO_LER)
+  currentPage Int?
+  isbn        String?
+  notes       String?
+  pages       Int?
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+}

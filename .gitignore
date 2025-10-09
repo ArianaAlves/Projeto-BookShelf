@@ -36,7 +36,7 @@ dev.db
 # Ignora o histórico de migrações e arquivos gerados localmente.
 /prisma/migrations
 /prisma/client
-/src/generated/prisma # Mantido se você tiver um caminho de saída customizado
+/generated/prisma # Pasta gerada pelo Prisma na raiz do projeto
 
 # ----------------------------------------------------
 # ARQUIVOS DE AMBIENTE E DEBUG

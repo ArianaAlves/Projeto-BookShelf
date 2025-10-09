@@ -1,62 +1,65 @@
 
 "use client";
-
 import Image from "next/image";
 import { Badge } from "./ui/badge";
-import { Button } from "./ui/button";
 
+<<<<<<< HEAD
 
+=======
+// 1. Removemos onView, onEdit, onDelete das props
+>>>>>>> main
 interface BookCardProps {
-  titulo: string;
-  autor: string;
-  capa?: string;
-  genero: string;
-  ano: number;   
-  avaliacao: number;
-  onView: () => void;
-  onEdit: () => void;
-  onDelete: () => void;
+  title: string;
+  author: string;
+  cover?: string;
+  genre: string;
+  year: number;
+  rating: number;
 }
 
 export default function BookCard({
-  titulo,
-  autor,
-  capa,
-  genero,
-  ano, 
-  avaliacao,
-  onView,
-  onEdit,
-  onDelete,
+  title,
+  author,
+  cover,
+  genre,
+  year,
+  rating,
 }: BookCardProps) {
+<<<<<<< HEAD
    return (
     <div className="bg-white dark:bg-zinc-800 rounded-xl p-4 flex flex-col items-center text-center shadow text-zinc-900 dark:text-zinc-100">
       {/* Capa única para todos os livros */}
       <Image
         src={capa || "/fallback.jpg"}
         alt="livro"
+=======
+  return (
+    // O div inteiro agora é clicável por causa do <Link> na página da biblioteca
+    <div className="bg-white shadow rounded-xl p-4 flex flex-col items-center text-center transition-transform hover:scale-105">
+      
+      <Image
+        src={cover ?? "/fallback.jpg"}
+        alt={title}
+>>>>>>> main
         width={100}
         height={150}
         className="object-cover rounded mb-2"
-      
-/>
+      />
 
-      {/* Título e autor */}
-      <h2 className="text-sm font-semibold">{titulo}</h2>
-      <p className="text-xs text-gray-500">{autor} • {ano}</p>
+      <h2 className="text-sm font-semibold mt-2">{title}</h2>
+      <p className="text-xs text-gray-500">{author} • {year}</p>
 
-      {/* Badge de gênero */}
-      <Badge className="mt-1">{genero}</Badge>
+      <Badge className="mt-1">{genre}</Badge>
 
-      {/* Avaliação em estrelas */}
       <div className="flex justify-center mt-2">
         {Array.from({ length: 5 }, (_, i) => (
-          <span key={i} className={i < avaliacao ? "text-yellow-400" : "text-gray-300"}>
+          <span key={i} className={i < rating ? "text-yellow-400" : "text-gray-300"}>
             ★
           </span>
         ))}
       </div>
 
+<<<<<<< HEAD
 <div className="flex gap-2 mt-5">
   {/* Ver */}
   <Button
@@ -125,5 +128,9 @@ export default function BookCard({
   </Button>
 </div>
 </div>
+=======
+      {/* 2. Removemos a div que continha os botões */}
+    </div>
+>>>>>>> main
   );
 }

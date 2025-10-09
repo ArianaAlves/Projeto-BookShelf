@@ -1,20 +1,23 @@
+<<<<<<< HEAD
 "use client";
 import { useState, useEffect } from "react";
 import BookCard from "../../components/BookCard";
 import { useRouter } from "next/navigation";
 // import { Listbox, Transition } from "@headlessui/react";
 // import { Fragment } from "react";
+=======
+// app/biblioteca/page.tsx
+import FilterableBookList from '../../components/FilterableBookList';
+import type { Book } from '../../types/book';
+>>>>>>> main
 
-type Livro = {
-  id: number;
-  titulo: string;
-  autor: string;
-  capa: string;
-  genero: string;
-  ano: number;
-  rating: number;
-};
+// Função para buscar os livros (agora aceita filtros)
+async function getBooks(query: string, genre: string): Promise<Book[]> {
+  try {
+    // Usamos a nossa fonte de dados local diretamente aqui
+    const { books } = await import('../data/books');
 
+<<<<<<< HEAD
 const livrosOriginais: Livro[] = [
   {
     id: 1,
@@ -80,40 +83,29 @@ const livrosOriginais: Livro[] = [
     rating: 4,
   },
 ];
+=======
+    let filteredBooks = books;
+
+    // 1. Filtra por género
+    if (genre && genre !== 'Todos') {
+      filteredBooks = filteredBooks.filter(book => book.genre === genre);
+    }
+    // 2. Filtra por termo de busca (no título ou autor)
+    if (query) {
+      filteredBooks = filteredBooks.filter(book => 
+        book.title.toLowerCase().includes(query.toLowerCase()) ||
+        book.author.toLowerCase().includes(query.toLowerCase())
+      );
+    }
+>>>>>>> main
 
 
-export default function Biblioteca() {
-  const [busca, setBusca] = useState("");
-  const [filtro, setFiltro] = useState("Todos");
-  const [livros, setLivros] = useState<Livro[]>(livrosOriginais);
-  const [lixeira, setLixeira] = useState<Livro[]>([]);
-  const router = useRouter();
-
-  // Carregar do localStorage ao iniciar
-  useEffect(() => {
-    const excluidos = localStorage.getItem("lixeiraBooks");
-    if (excluidos) setLixeira(JSON.parse(excluidos));
-    const salvos = localStorage.getItem("livrosBooks");
-    if (salvos) setLivros(JSON.parse(salvos));
-  }, []);
-
-  // Salvar no localStorage ao alterar
-  useEffect(() => {
-    localStorage.setItem("lixeiraBooks", JSON.stringify(lixeira));
-  }, [lixeira]);
-  useEffect(() => {
-    localStorage.setItem("livrosBooks", JSON.stringify(livros));
-  }, [livros]);
-
-  const livrosFiltrados = livros.filter(
-    (livro) =>
-      (filtro === "Todos" || livro.genero === filtro) &&
-      livro.titulo.toLowerCase().includes(busca.toLowerCase())
-  );
-
-  function handleView(id: number) {
-    router.push(`/biblioteca/livro?id=${id}`);
+    return filteredBooks;
+  } catch (error) {
+    console.error(error);
+    return [];
   }
+<<<<<<< HEAD
 
   function handleEdit(id: number) {
     router.push(`/biblioteca/editar?id=${id}`);
@@ -216,5 +208,47 @@ export default function Biblioteca() {
 
     </>
   );
+=======
+>>>>>>> main
 }
 
+
+// Função para buscar os géneros únicos
+async function getGenres(): Promise<string[]> {
+    try {
+        const { books } = await import('../data/books');
+        const allGenres = new Set(books.map(book => book.genre).filter(Boolean));
+        return Array.from(allGenres);
+    } catch (error) {
+        console.error(error);
+        return [];
+    }
+}
+
+
+// A página da biblioteca agora lê a URL para aplicar os filtros
+export default async function BibliotecaPage({ searchParams }: {
+  searchParams: Promise<{ q?: string; genre?: string }>;
+}) {
+ const params = await searchParams;
+
+  const query = params.q || '';
+  const genre = params.genre || 'Todos';
+
+
+  // Busca os dados no servidor já com os filtros aplicados
+  const livros = await getBooks(query, genre);
+  const generos = await getGenres();
+
+
+  return (
+    <div className="p-6 space-y-6">
+      <h1 className="text-2xl font-bold">📚 Minha Biblioteca</h1>
+
+
+      {/* Renderiza o componente cliente com os dados pré-filtrados */}
+      <FilterableBookList books={livros} genres={generos} />
+
+    </div>
+  );
+}

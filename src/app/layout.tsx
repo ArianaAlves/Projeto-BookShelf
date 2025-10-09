@@ -1,5 +1,9 @@
 import "./globals.css";
+<<<<<<< HEAD
 import { ThemeProvider } from "../components/theme-provider"
+=======
+import { ThemeProvider } from "./theme-provider";
+>>>>>>> main
 import type { Metadata } from "next";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
