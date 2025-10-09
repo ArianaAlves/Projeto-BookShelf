@@ -1,4 +1,4 @@
-/// app/Books/[id]/page.tsx
+/// app/livros/[id]/page.tsx
 import BookDetailsPage from '../../../components/BookDetailsPage';
 import { getBook } from '../../../../prisma/lib/db';
 import type { Book } from '../../../types/book';

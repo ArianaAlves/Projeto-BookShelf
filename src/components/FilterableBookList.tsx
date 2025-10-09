@@ -59,7 +59,7 @@ export default function FilterableBookList({ books, genres }: Props) {
       {/* Grid de livros (aqui está a parte importante) */}
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-6 mt-6">
         {books.map((livro) => (
-          <Link href={`/Books/${livro.id}`} key={livro.id}>
+          <Link href={`/livros/${livro.id}`} key={livro.id}>
             <BookCard
               titulo={livro.title}
               autor={livro.author}

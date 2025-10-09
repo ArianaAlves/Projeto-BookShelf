@@ -13,7 +13,7 @@ export async function createBookAction(formData: FormData) {
 
   await createBook({ title, author, genre: genre || undefined, description: description || undefined });
 
-  revalidatePath('/books');
+  revalidatePath('/livros');
 }
 
 export async function updateBookAction(id: string, formData: FormData) {
@@ -23,11 +23,11 @@ export async function updateBookAction(id: string, formData: FormData) {
   const description = String(formData.get('description') ?? '');
 
   await updateBook(id, { title, author, genre: genre || undefined, description: description || undefined });
-  revalidatePath(`/books`);
-  revalidatePath(`/books/${id}`);
+  revalidatePath(`/livros`);
+  revalidatePath(`/livros/${id}`);
 }
 
 export async function deleteBookAction(id: string) {
   await deleteBook(id);
-  revalidatePath('/books');
+  revalidatePath('/livros');
 }

@@ -32,8 +32,8 @@ export default function Biblioteca() {
             genero={livro.genero}
             ano={livro.ano}
             avaliacao={livro.rating}
-            onView={() => router.push(`/books/${livro.id}`)}
-            onEdit={() => router.push(`/books/${livro.id}/edit`)}
+            onView={() => router.push(`/livros/${livro.id}`)}
+            onEdit={() => router.push(`/livros/${livro.id}/edit`)}
             onDelete={() => handleDelete(livro.id)}
           />
         ))}
