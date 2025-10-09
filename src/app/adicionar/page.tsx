@@ -1,5 +1,5 @@
 import BookForm from '../../components/BookForm';
-import { createBookAction } from '../lib/actions';
+import { createBookAction } from '../actions/bookActions';
 import type { Book } from '../../types/book';
 
 // Página para adicionar um novo livro

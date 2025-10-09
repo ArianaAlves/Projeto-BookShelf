@@ -32,7 +32,7 @@ export async function getBooks({ search, genre, page = 1, pageSize = 12 }: GetBo
 }
 
 export async function getBookById(id: string) {
-  return prisma.book.findUnique({ where: { id } });
+  return prisma.book.findUnique({ where: { id: id } });
 }
 
 // Compatibility wrapper: some parts of the app expect `getBook(id: number)`

@@ -4,8 +4,9 @@ import { getBook } from '../../../../prisma/lib/db';
 import type { Book } from '../../../types/book';
 
 // Esta é a página do servidor que busca os dados
-export default async function Page({ params }: { params: { id: string } }) {
-  const bookData = await getBook(Number(params.id));
+export default async function Page({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
+  const bookData = await getBook(Number(id));
 
   if (!bookData) {
     return (

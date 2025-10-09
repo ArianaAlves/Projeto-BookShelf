@@ -112,7 +112,7 @@ export default function Dashboard() {
                 <span className="truncate max-w-[120px]">{livro.title}</span>
                 <button
                   className="ml-2 text-xs text-indigo-600 hover:underline"
-                  onClick={() => handleRestore(livro.id)}
+                  onClick={() => livro.id && handleRestore(livro.id)}
                 >
                   Restaurar
                 </button>

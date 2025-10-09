@@ -2,8 +2,9 @@ import { getBook } from "../../../../prisma/lib/db"; // Ajuste o caminho de impo
 import BookForm from "../../../components/BookForm"; // Ajuste o caminho de importação
 import type { Book } from "../../../types/book";
 
-export default async function EditPage({ params }: { params: { id: number } }) {
-  const book = await getBook(params.id);
+export default async function EditPage({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
+  const book = await getBook(Number(id));
 
   if (!book) {
     return <p>Livro não encontrado.</p>;

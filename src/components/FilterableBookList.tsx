@@ -61,12 +61,12 @@ export default function FilterableBookList({ books, genres }: Props) {
         {books.map((livro) => (
           <Link href={`/Books/${livro.id}`} key={livro.id}>
             <BookCard
-              title={livro.title}
-              author={livro.author}
-              cover={livro.cover}
-              genre={livro.genre ?? ''}
-              year={livro.year ?? 0}
-              rating={livro.rating ?? 0}
+              titulo={livro.title}
+              autor={livro.author}
+              capa={livro.cover}
+              genero={livro.genre ?? ''}
+              ano={livro.year ?? 0}
+              avaliacao={livro.rating ?? 0}
             />
           </Link>
         ))}

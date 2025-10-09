@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import { updateBookAction, deleteBookAction } from "../app/lib/actions";
+import { updateBookAction, deleteBookAction } from "../app/actions/bookActions";
 import { Button } from "../components/ui/button";
 import { Badge } from "../components/ui/badge";
 import BookForm from "../components/BookForm";
@@ -17,8 +17,8 @@ export default function BookDetailsPage({ book }: Props) {
 
   // Prepara a action com o ID do livro, para que o formulário saiba qual livro atualizar.
   // O .bind(null, book.id) pré-configura o primeiro argumento da sua Server Action.
-  const updateBookWithId = updateBookAction.bind(null, book.id);
-  const deleteBookWithId = deleteBookAction.bind(null, book.id);
+  const updateBookWithId = updateBookAction.bind(null, String(book.id || ''));
+  const deleteBookWithId = deleteBookAction.bind(null, String(book.id || ''));
 
   return (
     <div className="max-w-4xl mx-auto p-6 space-y-6">
@@ -73,7 +73,7 @@ export default function BookDetailsPage({ book }: Props) {
               
               {/* Para excluir, usamos um formulário simples que chama a action */}
               <form action={deleteBookWithId}>
-                <Button variant="danger" type="submit">
+                <Button variant="destructive" type="submit">
                   Excluir
                 </Button>
               </form>

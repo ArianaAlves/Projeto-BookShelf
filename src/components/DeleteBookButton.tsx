@@ -1,6 +1,6 @@
 // components/DeleteBookButton.tsx
 "use client";
-import { deleteBookAction } from '../app/lib/actions';
+import { deleteBookAction } from '../app/actions/bookActions';
 
 export default function DeleteBookButton({ id }: { id: string }) {
   // A função que será chamada pelo formulário

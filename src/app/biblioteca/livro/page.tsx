@@ -1,8 +1,18 @@
-"use client";
-import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import StarRating from "@/components/Star";
 import Image from "next/image";
+
+// Componente para o botão de editar
+function EditButton({ livroId }: { livroId: number }) {
+  return (
+    <Link 
+      href={`/editar/${livroId}`}
+      className="px-4 py-2 rounded-md text-sm font-medium text-white bg-gradient-to-r from-purple-400 via-purple-500 to-indigo-500 hover:opacity-90 transition"
+    >
+      Editar
+    </Link>
+  );
+}
 
 const livros = [ 
   { id: 1, titulo: "A Cidade do Sol", autor: "Khaled Hosseini", capa: "/cidade-do-sol.jpg", genero: "Drama", ano: 2007, rating: 5, sinopse: "Uma emocionante narrativa sobre a vida de duas mulheres afegãs, Mariam e Laila, cujas histórias se entrelaçam em meio a um Afeganistão devastado pela guerra e pela opressão.", }, 
@@ -13,17 +23,14 @@ const livros = [
   { id: 6, titulo: "Crime e Castigo", autor: "Fiódor Dostoiévski", capa: "/crime-e-castigo.jpg", genero: "Romance Psicológico", ano: 1866, rating: 5, sinopse: "Raskólnikov, um jovem estudante pobre de São Petersburgo, comete um assassinato acreditando que pessoas superiores têm o direito de transgredir a lei por um bem maior. No entanto, após o crime, ele é consumido pela culpa e mergulha em um intenso conflito psicológico e moral, que o leva a buscar redenção.", }, 
   { id: 7, titulo: "Razão e Sensibilidade", autor: "Jane Austen", capa: "/razao-e-sensibilidade.png", genero: "Romance", ano: 1811, rating: 4, sinopse: "Neste clássico de Jane Austen, as irmãs Elinor e Marianne Dashwood enfrentam os desafios do amor, da perda e das convenções sociais após a morte de seu pai. Enquanto Elinor age com racionalidade, Marianne se entrega às emoções. A história acompanha suas jornadas distintas em busca de felicidade, revelando o equilíbrio entre razão e sentimento em uma sociedade regida por aparências e interesses.", }, ];
 
-export default function LivroPage({ searchParams }: { searchParams: { id?: string } }) {
-  const router = useRouter();
-  const id = Number(searchParams?.id);
+export default async function LivroPage({ searchParams }: { searchParams: Promise<{ id?: string }> }) {
+  const params = await searchParams;
+  const id = Number(params?.id);
   const livro = livros.find((l) => l.id === id);
 
   if (!livro) {
     return <div className="p-6">Livro não encontrado.</div>;
   }
-  const handleEdit = () => {
-    router.push(`/editar/${livro.id}`);
-  };
 
   return (
     <div className="p-6 max-w-4xl mx-auto">
@@ -94,12 +101,7 @@ export default function LivroPage({ searchParams }: { searchParams: { id?: strin
 
           {/* Rodapé */}
           <div className="flex justify-center gap-3 py-4 border-t border-gray-200 bg-white">
-            <button
-              onClick={handleEdit}
-              className="px-4 py-2 rounded-md text-sm font-medium text-white bg-gradient-to-r from-purple-400 via-purple-500 to-indigo-500 hover:opacity-90 transition"
-            >
-              Editar
-            </button>
+            <EditButton livroId={livro.id} />
           </div>
         </div>
       </div>

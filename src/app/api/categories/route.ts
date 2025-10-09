@@ -2,6 +2,9 @@
 import { NextResponse } from 'next/server';
 import { books } from '../../data/books'; // Importamos a nossa lista de livros
 
+// Força a execução dinâmica dessa rota
+export const dynamic = 'force-dynamic';
+
 // GET /api/categories - Listar todos os géneros únicos
 export async function GET() {
   try {
