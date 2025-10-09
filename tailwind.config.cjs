@@ -1,4 +1,6 @@
 /** @type {import('tailwindcss').Config} */
+const animatePlugin = require("tailwindcss-animate");
+
 module.exports = {
   content: [
     "./src/app/**/*.{ts,tsx}",
@@ -21,5 +23,5 @@ module.exports = {
       }
     }
   },
-  plugins: [],
+  plugins: [animatePlugin],
 };
