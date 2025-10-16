@@ -25,10 +25,6 @@ Uma aplicação moderna de gerenciamento de livros, onde o usuário pode **adici
 * **Tailwind CSS** → estilização rápida e responsiva
 * **TypeScript** → maior segurança e escalabilidade
 * **Prisma** → armazenar livros e dados
-  
-```
-
-Abra em [[http://localhost:3000](http://localhost:3000)](https://projeto-book-shelf.vercel.app/) 🚀
 
 ---
 
